@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/main"
+        android:title="首页"/>
+    <item
+        android:id="@+id/data"
+        android:title="数据分析"/>
+    <item
+        android:id="@+id/photo"
+        android:title="相册"/>
+    <item
+        android:id="@+id/communication"
+        android:title="社区"/>
+    <item
+        android:id="@+id/rank"
+        android:title="榜单"/>
+</menu>
