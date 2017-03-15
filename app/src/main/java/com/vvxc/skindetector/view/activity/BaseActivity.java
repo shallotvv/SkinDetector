@@ -13,6 +13,7 @@ public abstract class BaseActivity<T extends BasePresenter<V>,V> extends AppComp
         super.onCreate(savedInstanceState);
         presenter=createPresenter();
         presenter.attachView((V) this);
+        //
 
     }
 
