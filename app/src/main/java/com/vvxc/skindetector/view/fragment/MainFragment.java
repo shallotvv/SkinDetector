@@ -40,6 +40,7 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater,container,savedInstanceState);
         initView(inflater,container);
         showGetWeather();
         presenter.getWeather(editCity.getText().toString());

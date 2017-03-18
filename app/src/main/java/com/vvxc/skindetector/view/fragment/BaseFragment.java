@@ -17,14 +17,14 @@ public abstract class BaseFragment<T extends BasePresenter<V>,V> extends Fragmen
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        presenter=createPresenter();
-        presenter.attachView((V)this);
         super.onCreate(savedInstanceState);
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        presenter=createPresenter();
+        presenter.attachView((V)this);
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
