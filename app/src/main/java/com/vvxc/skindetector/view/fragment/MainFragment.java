@@ -1,31 +1,44 @@
 package com.vvxc.skindetector.view.fragment;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.vvxc.skindetector.R;
 import com.vvxc.skindetector.presenter.MainFrgmPresenter;
 import com.vvxc.skindetector.view.activity.MainActivity;
+import com.vvxc.skindetector.view.adapter.BluetoothListAdapter;
 import com.vvxc.skindetector.view.adapter.MyViewPagerAdapter;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by vvxc on 2017/3/12.
  */
-public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentView>implements MainFragmentView {
+public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentView>implements MainFragmentView,View.OnClickListener {
     View view;
     TextView temporature;
     TextView city;
@@ -37,6 +50,12 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
     Toolbar toolbar;
     CoordinatorLayout coordinatorLayout;
     EditText editCity;
+    Button blueToothBtn;
+
+    BluetoothAdapter bluetoothAdapter;
+    public final static int MAIN_FRGM_TAG=1;
+    public final static int ON_CONNECT_SUCCESS=2;
+    public final static int ON_CONNECT_FAIL=3;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -65,6 +84,10 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
         toolbar= (Toolbar) view.findViewById(R.id.toolBar);
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
         mTabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
+        blueToothBtn= (Button) view.findViewById(R.id.btn_bluetooth);
+
+
+        blueToothBtn.setOnClickListener(this);
 
         coordinatorLayout= (CoordinatorLayout) view.findViewById(R.id.coordinator_layout);
         coordinatorLayout.setOnTouchListener(new View.OnTouchListener() {
@@ -158,5 +181,53 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
     public void showSuccess() {
 
         Toast.makeText(getActivity(),"获取天气成功.",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_bluetooth:
+                    bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
+
+                    if (bluetoothAdapter.isEnabled()!=true){
+                        bluetoothAdapter.enable();
+                    }else{
+                        showBTList();
+                    }
+
+                break;
+        }
+    }
+
+    private void showBTList() {
+
+        List<BluetoothDevice> list =new ArrayList<BluetoothDevice>();
+
+        Set<BluetoothDevice> set=bluetoothAdapter.getBondedDevices();
+        for (BluetoothDevice device :
+                set) {
+            list.add(device);
+        }
+
+        AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
+        WindowManager.LayoutParams layoutParams=new WindowManager.LayoutParams();
+        AlertDialog dialog=builder.setTitle("已配对设备:")
+                .setNegativeButton("取消",null)
+                .setPositiveButton("搜索设备",null)
+                .setView(R.layout.dialog_bluetooth)
+                .show();
+        dialog.getWindow().setBackgroundDrawableResource(R.color.primary_dark);
+
+        ListView listView= (ListView) dialog.findViewById(R.id.bluetooth_list);
+        listView.setAdapter(new BluetoothListAdapter(getActivity(),list));
+    }
+
+
+    @Override
+    public void onDestroyView() {
+        if (bluetoothAdapter.isEnabled()==true){
+            bluetoothAdapter.disable();
+        }
+        super.onDestroyView();
     }
 }
