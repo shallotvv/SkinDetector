@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.vvxc.skindetector.Bean.UserInfoBean;
 import com.vvxc.skindetector.Bean.UserLoginBean;
 import com.vvxc.skindetector.R;
 import com.vvxc.skindetector.presenter.LoginPresenter;
@@ -110,8 +111,11 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginView> implem
     }
 
     @Override
-    public void goNextContext() {
+    public void goNextContext(UserInfoBean user) {
         loginButton.setEnabled(true);
+        Intent intent=new Intent();
+        intent.putExtra("user",user);
+        setResult(MainActivity.LOGIN_SUCCESS,intent);
         finish();
 
     }

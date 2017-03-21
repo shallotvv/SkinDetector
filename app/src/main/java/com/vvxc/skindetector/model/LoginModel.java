@@ -1,5 +1,6 @@
 package com.vvxc.skindetector.model;
 
+import com.vvxc.skindetector.Bean.UserInfoBean;
 import com.vvxc.skindetector.Bean.UserLoginBean;
 
 /**
@@ -14,7 +15,7 @@ public interface LoginModel {
     void postUserInfo(UserLoginBean user,OnPostCompleteListener onPostCompleteListener);
 
     interface  OnPostCompleteListener{
-        void onPostSuccess();
+        void onPostSuccess(UserInfoBean user);
         void onPostFail();
     }
 }

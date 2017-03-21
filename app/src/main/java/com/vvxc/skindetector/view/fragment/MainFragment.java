@@ -184,12 +184,19 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
     }
 
     @Override
+    public void setName(String name) {
+        MainActivity mainActivity= (MainActivity) getActivity();
+        mainActivity.setName(name);
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_bluetooth:
                     bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
 
                     if (bluetoothAdapter.isEnabled()!=true){
+                        Toast.makeText(getActivity(),"请先打开蓝牙",Toast.LENGTH_SHORT).show();
                         bluetoothAdapter.enable();
                     }else{
                         showBTList();

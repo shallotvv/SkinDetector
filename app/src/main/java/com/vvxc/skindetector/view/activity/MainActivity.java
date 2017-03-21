@@ -14,15 +14,24 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.vvxc.skindetector.Bean.UserInfoBean;
 import com.vvxc.skindetector.R;
+import com.vvxc.skindetector.presenter.MainPresenter;
 import com.vvxc.skindetector.view.fragment.MainFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends BaseActivity<MainPresenter,MainView> implements MainView{
+    public final static  int MAIN_TAG=12344;
+    public final static  int LOGIN_SUCCESS=1;
+    public final static  int LOGIN_FAIL=0;
+    private static boolean isLogin=false;
+
 //    TabLayout mTabLayout;
 //    ViewPager mViewPager;
 //    Toolbar toolbar;
@@ -40,6 +49,9 @@ public class MainActivity extends ActionBarActivity {
 
 
         initView();
+
+        presenter.loginByToken(getSharedPreferences("user",MODE_PRIVATE));
+
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -61,6 +73,11 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
+    @Override
+    protected MainPresenter createPresenter() {
+        return new MainPresenter();
+    }
+
 
     private void initView() {
         navigationView= (NavigationView) findViewById(R.id.navigation_view );
@@ -78,12 +95,32 @@ public class MainActivity extends ActionBarActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isLogin){
+                    Toast.makeText(MainActivity.this,"跳转到个人主页",Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,MAIN_TAG);
 
             }
         });
 
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode==MAIN_TAG){
+            if (resultCode==LOGIN_SUCCESS)
+            {
+                UserInfoBean user= (UserInfoBean) data.getSerializableExtra("user");
+                setName(user.getUser_name());
+
+                setLogin(true);
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void hideFragment() {
@@ -125,6 +162,16 @@ public class MainActivity extends ActionBarActivity {
     public void openDrawer(){
 
         drawerLayout.openDrawer(navigationView);
+    }
+
+    public void setName(String name ){
+        TextView nameText= (TextView) navigationView.getHeaderView(0).findViewById(R.id.user_name);
+        nameText.setText(name);
+    }
+
+    @Override
+    public void setLogin(boolean isLogin) {
+        this.isLogin=isLogin;
     }
 
 }

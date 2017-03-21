@@ -11,4 +11,5 @@ public interface MainFragmentView {
     void showFail();
     void showGetWeather();
     void showSuccess();
+    void setName(String name);
 }
