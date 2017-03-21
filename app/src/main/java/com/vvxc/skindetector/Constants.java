@@ -4,10 +4,10 @@ package com.vvxc.skindetector;
  * Created by vvxc on 2017/3/10.
  */
 public class Constants {
-    public static final String BaseUrl = "http://123.207.109.164";
+    public static final String BaseUrl = "http://192.168.191.1:8080/SkinDectector/";
 
-    public static final String RegisterUrl = "/account/register";
-    public static final String LoginUrl =  "/account/login";
+    public static final String RegisterUrl = "account/register";
+    public static final String LoginUrl =  "user";
     public static final String UserInfoUrl =  "/users/";
     public static final String UpdateUserInfoUrl =  "/users/";
     public static final String UpLoadSkinDateUrl =  "/skindata/";

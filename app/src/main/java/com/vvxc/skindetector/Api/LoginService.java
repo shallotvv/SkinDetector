@@ -14,8 +14,9 @@ import retrofit2.http.Query;
 public interface LoginService {
     @FormUrlEncoded
     @POST(Constants.LoginUrl)
-    Call<String> getString(@Field("phone") String phone,
-                           @Field("password") String password);
+    Call<String> getString(@Field("tel") String phone,
+                           @Field("password") String password,
+                           @Field("method") String method);
 
 
 }

@@ -10,6 +10,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
@@ -21,19 +22,25 @@ public class LoginModelImpl implements LoginModel{
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BaseUrl)
                 .addConverterFactory(ScalarsConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
         LoginService service= retrofit.create(LoginService.class);
-        Call<String> call=service.getString(user.getPhone(),user.getPassword());
+        Call<String> call=service.getString(user.getPhone(),user.getPassword(),"login");
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                if (response.body()!=null){
+                Log.i("wxc_login","login\n------body-----"+response.body()+"----\n"+response.headers()+"---------\n"+response.message());
+                if (response.body().length()>20){
+
+                    Log.i("wxc_login","------body-----\n"+response.body()+"----\n");
                     onPostCompleteListener.onPostSuccess();
+                    Log.i("wxc_login","login\n"+"success");
                 }else{
                     onPostCompleteListener.onPostFail();
+                    Log.i("wxc_login","login\n"+"fail");
                 }
-                Log.i("wxc_login",response.body()+"----\n"+response.headers()+"---------\n"+response.message());
+
             }
 
             @Override

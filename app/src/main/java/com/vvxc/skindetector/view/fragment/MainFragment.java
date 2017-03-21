@@ -225,8 +225,10 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
 
     @Override
     public void onDestroyView() {
-        if (bluetoothAdapter.isEnabled()==true){
-            bluetoothAdapter.disable();
+        if (bluetoothAdapter!=null){
+            if (bluetoothAdapter.isEnabled()==true){
+                bluetoothAdapter.disable();
+            }
         }
         super.onDestroyView();
     }
