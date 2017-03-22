@@ -1,5 +1,6 @@
 package com.vvxc.skindetector.presenter;
 
+import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -9,6 +10,8 @@ import com.vvxc.skindetector.model.MainFrgmModel;
 import com.vvxc.skindetector.model.MainFrgmModelImpl;
 import com.vvxc.skindetector.view.fragment.MainFragment;
 import com.vvxc.skindetector.view.fragment.MainFragmentView;
+
+import java.io.IOException;
 
 /**
  * Created by vvxc on 2017/3/12.
@@ -54,6 +57,26 @@ public class MainFrgmPresenter extends BasePresenter<MainFragmentView>{
                 getView().showFail();
             }
         });
+    }
+
+    public void connectBluetooth(BluetoothDevice device){
+
+            getView().showConnectBLT();
+            try {
+                model.connectBluetooth(device, new MainFrgmModel.OnConnectBTCompeleteListener() {
+                    @Override
+                    public void onSuccess() {
+                        getView().showConnectBLTSuccess();
+                    }
+
+                    @Override
+                    public void onFail() {
+                        getView().showConnectBLTFail();
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
     }
 
 

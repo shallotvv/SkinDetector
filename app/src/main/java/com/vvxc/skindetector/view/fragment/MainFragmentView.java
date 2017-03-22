@@ -13,4 +13,8 @@ public interface MainFragmentView {
     void showGetWeather();
     void showSuccess();
     void setName(String name);
+
+    void showConnectBLTFail();
+    void showConnectBLTSuccess();
+    void showConnectBLT();
 }

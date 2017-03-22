@@ -13,6 +13,8 @@ public class Constants {
     public static final String UpLoadSkinDateUrl =  "/skindata/";
     public static final String DownLoadSkinDateUrl =  "/skindata/";
 
+    public static  final  String MY_UUID="00001101-0000-1000-8000-00805F9B34FB";
+
     public static  final int DENY=0;
     public static  final int NOMAL=1;
     public static  final int OIL=2;

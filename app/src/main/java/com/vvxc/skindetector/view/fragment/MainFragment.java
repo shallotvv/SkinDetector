@@ -1,5 +1,6 @@
 package com.vvxc.skindetector.view.fragment;
 
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothManager;
@@ -22,6 +23,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +56,8 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
     EditText editCity;
     Button blueToothBtn;
     BluetoothAdapter bluetoothAdapter;
+    AlertDialog dialog;
+    ProgressDialog progressDialog;
     public final static int MAIN_FRGM_TAG=1;
     public final static int ON_CONNECT_SUCCESS=2;
     public final static int ON_CONNECT_FAIL=3;
@@ -90,7 +94,8 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
         mTabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         blueToothBtn= (Button) view.findViewById(R.id.btn_bluetooth);
 
-
+        progressDialog=new ProgressDialog(getActivity(),R.style.AppTheme_Dark_Dialog);
+        progressDialog.setCancelable(false);
         blueToothBtn.setOnClickListener(this);
 
         coordinatorLayout= (CoordinatorLayout) view.findViewById(R.id.coordinator_layout);
@@ -196,6 +201,29 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
     }
 
     @Override
+    public void showConnectBLTFail() {
+
+        Toast.makeText(getActivity(),"连接蓝牙失败", Toast.LENGTH_SHORT).show();
+        progressDialog.dismiss();
+        dialog.show();
+    }
+
+    @Override
+    public void showConnectBLTSuccess() {
+        Toast.makeText(getActivity(),"连接蓝牙成功", Toast.LENGTH_SHORT).show();
+        dialog.hide();
+
+    }
+
+    @Override
+    public void showConnectBLT() {
+        dialog.hide();
+        progressDialog.setMessage("正在连接...");
+        progressDialog.show();
+
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_bluetooth:
@@ -224,7 +252,7 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
 
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
         WindowManager.LayoutParams layoutParams=new WindowManager.LayoutParams();
-        AlertDialog dialog=builder.setTitle("已配对设备:")
+        dialog=builder.setTitle("已配对设备:")
                 .setNegativeButton("取消",null)
                 .setPositiveButton("搜索设备",null)
                 .setView(R.layout.dialog_bluetooth)
@@ -232,7 +260,7 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
         dialog.getWindow().setBackgroundDrawableResource(R.color.primary_dark);
 
         ListView listView= (ListView) dialog.findViewById(R.id.bluetooth_list);
-        listView.setAdapter(new BluetoothListAdapter(getActivity(),list));
+        listView.setAdapter(new BluetoothListAdapter(getActivity(),list,presenter));
     }
 
 

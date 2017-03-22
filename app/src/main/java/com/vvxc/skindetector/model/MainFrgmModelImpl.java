@@ -1,10 +1,18 @@
 package com.vvxc.skindetector.model;
 
+import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothSocket;
+import android.os.Handler;
 import android.util.Log;
 
 import com.vvxc.skindetector.Api.WeatherService;
 import com.vvxc.skindetector.Bean.WeatherBean;
 import com.vvxc.skindetector.Bean.WeatherCityBean;
+import com.vvxc.skindetector.Constants;
+
+import java.io.IOException;
+import java.util.UUID;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -15,8 +23,14 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 /**
  * Created by vvxc on 2017/3/12.
+ * 先搜索城市，得到城市id
+ * 通过城市id获取到对应城市的天气
+ *
+ * 连接蓝牙，接受数据
  */
 public class MainFrgmModelImpl implements MainFrgmModel{
+    Handler handler=new Handler();
+
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(WeatherService.WHEATHER_BASE_URL)
             .addConverterFactory(ScalarsConverterFactory.create())
@@ -81,5 +95,35 @@ public class MainFrgmModelImpl implements MainFrgmModel{
 
             }
         });
+    }
+
+    @Override
+    public void connectBluetooth(final BluetoothDevice bluetoothDevice, final OnConnectBTCompeleteListener listener){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                BluetoothSocket socket= null;
+                try {
+                    socket = bluetoothDevice.createRfcommSocketToServiceRecord(UUID.fromString(Constants.MY_UUID));
+                    socket.connect();
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            listener.onSuccess();
+                        }
+                    });
+                } catch (IOException e) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            listener.onFail();
+                        }
+                    });
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
     }
 }
