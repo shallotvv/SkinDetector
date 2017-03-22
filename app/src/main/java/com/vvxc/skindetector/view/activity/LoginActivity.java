@@ -59,7 +59,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginView> implem
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
 
-                // TODO: Implement successful signup logic here
                 // By default we just finish the Activity and log them in automatically
                 this.finish();
             }
@@ -88,6 +87,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginView> implem
 
             case R.id.link_signup:
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
+                //判断用户是否注册成功，如果成功，返回ok，LoginActivity  finnish。
                 startActivityForResult(intent, REQUEST_SIGNUP);
                 finish();
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);

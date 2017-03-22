@@ -14,6 +14,7 @@ import com.vvxc.skindetector.view.fragment.MainFragmentView;
  * Created by vvxc on 2017/3/12.
  *
  * MainFragmentPresenter
+ * 请求天气数据，更新ui
  */
 public class MainFrgmPresenter extends BasePresenter<MainFragmentView>{
     MainFrgmModel model=new MainFrgmModelImpl();

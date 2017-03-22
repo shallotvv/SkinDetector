@@ -14,6 +14,9 @@ import com.vvxc.skindetector.Constants;
 import com.vvxc.skindetector.R;
 import com.vvxc.skindetector.presenter.SelectInfoPresenter;
 
+/**
+ * 注册时让用户选择自己的肤质和性别的界面
+ */
 public class SelectInfoActivity extends BaseActivity<SelectInfoPresenter,SelectInfoView> implements SelectInfoView,View.OnClickListener{
 
     ImageView boyImg;

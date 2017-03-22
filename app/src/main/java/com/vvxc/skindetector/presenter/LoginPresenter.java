@@ -22,6 +22,7 @@ public class LoginPresenter extends BasePresenter<LoginView>{
     public void login(UserLoginBean user){
         JudgeUserInfoUtil juUtil=new JudgeUserInfoUtil();
         int judgeType=juUtil.judge(user);
+        //如果填写格式不对，则让用户重新填写
         if (JudgeUserInfoUtil.TELEPHONE_INVALID==judgeType){
             getView().showTeleInvaid();
             return;

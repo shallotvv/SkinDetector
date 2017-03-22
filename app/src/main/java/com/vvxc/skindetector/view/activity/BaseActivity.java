@@ -5,6 +5,12 @@ import android.os.Bundle;
 
 import com.vvxc.skindetector.presenter.BasePresenter;
 
+/**
+ *
+ * @param <T> 对应activity的presenter，负责activity和model的通讯
+ * @param <V> 对应activity的view接口，声明了这个activity的UI操作
+ */
+
 public abstract class BaseActivity<T extends BasePresenter<V>,V> extends AppCompatActivity {
     protected T presenter;
 

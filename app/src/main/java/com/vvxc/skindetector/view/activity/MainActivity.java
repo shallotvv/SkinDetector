@@ -50,6 +50,11 @@ public class MainActivity extends BaseActivity<MainPresenter,MainView> implement
 
         initView();
 
+        /**
+         * 当用户打开应用时，先尝试读取本地的SharedPreferences
+         * 如果用户登录过，那本地会保存有之前的登录信息
+         * 完成自动登录
+         */
         presenter.loginByToken(getSharedPreferences("user",MODE_PRIVATE));
 
 
@@ -115,7 +120,7 @@ public class MainActivity extends BaseActivity<MainPresenter,MainView> implement
             {
                 UserInfoBean user= (UserInfoBean) data.getSerializableExtra("user");
                 setName(user.getUser_name());
-
+                //登录成功后改变用户名字和头像，并更改用户状态为已登录，点击头像应该跳转到个人主页而不是登录界面了
                 setLogin(true);
             }
         }

@@ -9,6 +9,7 @@ import retrofit2.http.Query;
 
 /**
  * Created by vvxc on 2017/3/12.
+ * 获取天气接口
  */
 public interface WeatherService {
     static final String WHEATHER_URL="weather/now.json";

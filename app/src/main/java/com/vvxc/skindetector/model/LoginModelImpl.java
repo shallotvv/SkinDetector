@@ -23,6 +23,7 @@ public class LoginModelImpl implements LoginModel{
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BaseUrl)
                 .addConverterFactory(ScalarsConverterFactory.create())
+                //加入解析json格式数据的支持
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

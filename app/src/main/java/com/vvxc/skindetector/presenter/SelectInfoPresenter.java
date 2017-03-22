@@ -7,6 +7,7 @@ import com.vvxc.skindetector.view.activity.SelectInfoView;
 
 /**
  * Created by vvxc on 2017/3/11.
+ * 提交用户的肤质和性别
  */
 public class SelectInfoPresenter extends BasePresenter<SelectInfoView> {
     private SelectInfoModel model=new SelectInfoModelImpl();

@@ -36,6 +36,8 @@ import java.util.List;
 import java.util.Set;
 
 /**
+ * 首页主界面fragment
+ * 包含天气模块和下面的viewpager
  * Created by vvxc on 2017/3/12.
  */
 public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentView>implements MainFragmentView,View.OnClickListener {
@@ -51,7 +53,6 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
     CoordinatorLayout coordinatorLayout;
     EditText editCity;
     Button blueToothBtn;
-
     BluetoothAdapter bluetoothAdapter;
     public final static int MAIN_FRGM_TAG=1;
     public final static int ON_CONNECT_SUCCESS=2;
@@ -61,7 +62,10 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater,container,savedInstanceState);
         initView(inflater,container);
+        //显示正在获取天气的Toast
         showGetWeather();
+
+
         presenter.getWeather(editCity.getText().toString());
 
         return view;
@@ -90,6 +94,8 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
         blueToothBtn.setOnClickListener(this);
 
         coordinatorLayout= (CoordinatorLayout) view.findViewById(R.id.coordinator_layout);
+
+        //当用户填写完城市地点后，点击其他地方收回小键盘，edittext失去焦点
         coordinatorLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

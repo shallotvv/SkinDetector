@@ -2,6 +2,7 @@ package com.vvxc.skindetector.view.fragment;
 
 /**
  * Created by vvxc on 2017/3/12.
+ * mainfragment的UI操作，修改天气，地点，护肤建议等
  */
 public interface MainFragmentView {
     void setTemperature(String string);

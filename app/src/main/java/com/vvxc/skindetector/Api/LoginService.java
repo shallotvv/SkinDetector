@@ -12,6 +12,7 @@ import retrofit2.http.Query;
 
 /**
  * Created by vvxc on 2017/3/10.
+ * 登录接口
  */
 public interface LoginService {
     @FormUrlEncoded
