@@ -13,7 +13,9 @@ public interface MainFrgmModel {
 
     void getWeather(String id,OnGetWeatherCompeleteListener listener);
 
-    void connectBluetooth(BluetoothDevice bluetoothDevice,OnConnectBTCompeleteListener listener) throws IOException;
+    void connectBluetooth(BluetoothDevice bluetoothDevice,OnConnectBTCompeleteListener listener);
+
+    void acceptData();
 
     interface OnGetWeatherCompeleteListener {
         void onSuccess(String temperature,String location,String weather,String humidity);

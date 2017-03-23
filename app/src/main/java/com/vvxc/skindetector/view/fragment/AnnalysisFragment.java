@@ -1,41 +1,42 @@
 package com.vvxc.skindetector.view.fragment;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.renderer.XAxisRenderer;
 import com.vvxc.skindetector.Bean.ChartDataBean;
 import com.vvxc.skindetector.R;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * Created by vvxc on 2017/3/11.
  */
-public class TestFragment extends Fragment {
+public class AnnalysisFragment extends Fragment implements AnnalysisFragmentView {
+
+    List<Entry> data;
+    LineChart chart;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view=LayoutInflater.from(getActivity()).inflate(R.layout.fragment_oil,container,false);
-        LineChart chart = (LineChart) view.findViewById(R.id.oil_chart);
-        ChartDataBean dataBean=new ChartDataBean();
-        dataBean.setValueX(5);
-        dataBean.setValueY(6);
+        View view=LayoutInflater.from(getActivity()).inflate(R.layout.fragment_annalysis,container,false);
+         chart= (LineChart) view.findViewById(R.id.oil_chart);
 
-        List<Entry> data=new ArrayList<Entry>();
 
+        data=new ArrayList<>();
         data.add(new Entry(5,6));
         data.add(new Entry(6,7));
         data.add(new Entry(7,8));
@@ -54,8 +55,18 @@ public class TestFragment extends Fragment {
         xAxis.setAvoidFirstLastClipping(true);
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
 
-
-
         return  view;
+    }
+
+    @Override
+    public void reloadData(String string) {
+        Log.i("wxc_annalysis","更新数据");
+        data.add(new Entry(13,5));
+        LineDataSet lineDataSet= (LineDataSet) chart.getLineData().getDataSetByIndex(0);
+        lineDataSet.notifyDataSetChanged();
+  //      chart.notifyDataSetChanged();
+
+        chart.setData(new LineData(lineDataSet));
+        chart.invalidate();
     }
 }

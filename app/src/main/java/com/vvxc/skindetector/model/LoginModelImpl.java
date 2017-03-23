@@ -2,7 +2,7 @@ package com.vvxc.skindetector.model;
 
 import android.util.Log;
 
-import com.vvxc.skindetector.Api.LoginService;
+import com.vvxc.skindetector.Api.UserService;
 import com.vvxc.skindetector.Bean.UserInfoBean;
 import com.vvxc.skindetector.Bean.UserLoginBean;
 import com.vvxc.skindetector.Constants;
@@ -27,7 +27,7 @@ public class LoginModelImpl implements LoginModel{
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        LoginService service= retrofit.create(LoginService.class);
+        UserService service= retrofit.create(UserService.class);
         Call<UserInfoBean> call=service.getInfo(user.getPhone(),user.getPassword(),"login");
         call.enqueue(new Callback<UserInfoBean>() {
             @Override

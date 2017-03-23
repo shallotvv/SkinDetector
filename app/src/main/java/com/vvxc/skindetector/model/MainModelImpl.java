@@ -2,7 +2,7 @@ package com.vvxc.skindetector.model;
 
 import android.util.Log;
 
-import com.vvxc.skindetector.Api.LoginService;
+import com.vvxc.skindetector.Api.UserService;
 import com.vvxc.skindetector.Bean.UserInfoBean;
 import com.vvxc.skindetector.Constants;
 
@@ -25,7 +25,7 @@ public class MainModelImpl implements  MainModel {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        LoginService service= retrofit.create(LoginService.class);
+        UserService service= retrofit.create(UserService.class);
         Call<UserInfoBean> call=service.getInfoByToken("JSESSIONID="+token+"; Path=/SkinDectector/; ",token,"token");
         call.enqueue(new Callback<UserInfoBean>() {
             @Override

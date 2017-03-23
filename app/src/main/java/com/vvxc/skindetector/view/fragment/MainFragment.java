@@ -3,9 +3,8 @@ package com.vvxc.skindetector.view.fragment;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.bluetooth.BluetoothManager;
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
@@ -13,7 +12,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -23,7 +21,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -48,6 +45,8 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
     TextView city;
     TextView weather;
     TextView tip;
+
+    AnnalysisFragment oilFragment,waterFragment,temperatureFragment,phFragment;
 
     TabLayout mTabLayout;
     ViewPager mViewPager;
@@ -125,13 +124,16 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
         });
 
 
-
+        waterFragment=new AnnalysisFragment();
+        oilFragment=new AnnalysisFragment();
+        temperatureFragment=new AnnalysisFragment();
+        phFragment=new AnnalysisFragment();
         MyViewPagerAdapter viewPagerAdapter = new MyViewPagerAdapter(((MainActivity)getActivity()).getSupportFragmentManager());
-        viewPagerAdapter.addFragment(new TestFragment(), "水分");//添加Fragment
-        viewPagerAdapter.addFragment(new TestFragment(), "油脂");
-        viewPagerAdapter.addFragment(new TestFragment(), "温度");
-        viewPagerAdapter.addFragment(new TestFragment(), "PH");
-        viewPagerAdapter.addFragment(new TestFragment(), "总体评估");
+        viewPagerAdapter.addFragment(waterFragment, "水分");//添加Fragment
+        viewPagerAdapter.addFragment(oilFragment, "油脂");
+        viewPagerAdapter.addFragment(temperatureFragment, "温度");
+        viewPagerAdapter.addFragment(phFragment, "PH");
+        viewPagerAdapter.addFragment(new AnnalysisFragment(), "总体评估");
         mViewPager.setAdapter(viewPagerAdapter);//设置适配器
 
         mTabLayout.addTab(mTabLayout.newTab().setText("水分"));//给TabLayout添加Tab
@@ -211,6 +213,7 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
     @Override
     public void showConnectBLTSuccess() {
         Toast.makeText(getActivity(),"连接蓝牙成功", Toast.LENGTH_SHORT).show();
+        progressDialog.dismiss();
         dialog.hide();
 
     }
@@ -234,6 +237,8 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
                         bluetoothAdapter.enable();
                     }else{
                         showBTList();
+                        waterFragment.reloadData("1");
+
                     }
 
                 break;
@@ -254,10 +259,16 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
         WindowManager.LayoutParams layoutParams=new WindowManager.LayoutParams();
         dialog=builder.setTitle("已配对设备:")
                 .setNegativeButton("取消",null)
-                .setPositiveButton("搜索设备",null)
+                .setPositiveButton("搜索设备", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Toast.makeText(getContext(),"待完成功能,请先使用手机自带蓝牙配对",Toast.LENGTH_SHORT).show();
+                    }
+                })
                 .setView(R.layout.dialog_bluetooth)
                 .show();
         dialog.getWindow().setBackgroundDrawableResource(R.color.primary_dark);
+        dialog.setCanceledOnTouchOutside(false);
 
         ListView listView= (ListView) dialog.findViewById(R.id.bluetooth_list);
         listView.setAdapter(new BluetoothListAdapter(getActivity(),list,presenter));

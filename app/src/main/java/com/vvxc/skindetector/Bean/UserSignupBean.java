@@ -4,42 +4,51 @@ package com.vvxc.skindetector.Bean;
  * Created by vvxc on 2017/3/10.
  */
 public class UserSignupBean {
-    private String name;
-    private String email;
-    private String tele;
-    private String password;
+    private String method;
+    private String user_name;
+    private String user_email;
+    private String user_tel;
+    private String user_password;
     private String reEnterPassword;
 
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
+    }
+
     public String getName() {
-        return name;
+        return user_name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.user_name = name;
     }
 
     public String getEmail() {
-        return email;
+        return user_email;
     }
 
     public void setEmail(String email) {
-        this.email = email;
+        this.user_email = email;
     }
 
     public String getTele() {
-        return tele;
+        return user_tel;
     }
 
     public void setTele(String tele) {
-        this.tele = tele;
+        this.user_tel = tele;
     }
 
     public String getPassword() {
-        return password;
+        return user_password;
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.user_password = password;
     }
 
     public String getReEnterPassword() {

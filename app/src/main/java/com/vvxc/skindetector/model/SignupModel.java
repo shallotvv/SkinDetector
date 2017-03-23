@@ -16,6 +16,6 @@ public interface SignupModel {
 
     interface OnPostCompleteListener{
         void onSuccess();
-        void onFail();
+        void onFail(String state);
     }
 }

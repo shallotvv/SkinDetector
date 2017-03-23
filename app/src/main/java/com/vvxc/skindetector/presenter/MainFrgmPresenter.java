@@ -62,21 +62,19 @@ public class MainFrgmPresenter extends BasePresenter<MainFragmentView>{
     public void connectBluetooth(BluetoothDevice device){
 
             getView().showConnectBLT();
-            try {
-                model.connectBluetooth(device, new MainFrgmModel.OnConnectBTCompeleteListener() {
-                    @Override
-                    public void onSuccess() {
-                        getView().showConnectBLTSuccess();
-                    }
 
-                    @Override
-                    public void onFail() {
-                        getView().showConnectBLTFail();
-                    }
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            model.connectBluetooth(device, new MainFrgmModel.OnConnectBTCompeleteListener() {
+                @Override
+                public void onSuccess() {
+                    getView().showConnectBLTSuccess();
+                    model.acceptData();
+                }
+
+                @Override
+                public void onFail() {
+                    getView().showConnectBLTFail();
+                }
+            });
     }
 
 

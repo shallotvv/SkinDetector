@@ -14,7 +14,7 @@ public class SignupPresenter extends BasePresenter<SignupView> {
     public void signup(UserSignupBean user){
         JudgeUserInfoUtil util=new JudgeUserInfoUtil();
         int type=-1;
-       // type=util.judge(user);
+        type=util.judge(user);
 
         if (JudgeUserInfoUtil.NAME_INVALID==type){
             getView().showNameInvalid();
@@ -41,6 +41,7 @@ public class SignupPresenter extends BasePresenter<SignupView> {
         }
 
         getView().showDialog();
+        user.setMethod("signup");
         signupModel.postUserInfo(user, new SignupModel.OnPostCompleteListener() {
             @Override
             public void onSuccess() {
@@ -49,9 +50,10 @@ public class SignupPresenter extends BasePresenter<SignupView> {
             }
 
             @Override
-            public void onFail() {
+            public void onFail(String state) {
                 getView().hideDialog();
-                getView().showSignupFail();
+                //state:1,成功。 2，出错，3已经存在用户
+                getView().showSignupFail(state);
             }
         });
 

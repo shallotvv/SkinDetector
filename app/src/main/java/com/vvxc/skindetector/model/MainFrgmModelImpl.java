@@ -12,6 +12,9 @@ import com.vvxc.skindetector.Bean.WeatherCityBean;
 import com.vvxc.skindetector.Constants;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -30,6 +33,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 public class MainFrgmModelImpl implements MainFrgmModel{
     Handler handler=new Handler();
+    BluetoothSocket socket= null;
 
     Retrofit retrofit = new Retrofit.Builder()
             .baseUrl(WeatherService.WHEATHER_BASE_URL)
@@ -102,10 +106,10 @@ public class MainFrgmModelImpl implements MainFrgmModel{
         new Thread(new Runnable() {
             @Override
             public void run() {
-                BluetoothSocket socket= null;
                 try {
                     socket = bluetoothDevice.createRfcommSocketToServiceRecord(UUID.fromString(Constants.MY_UUID));
                     socket.connect();
+
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -124,6 +128,58 @@ public class MainFrgmModelImpl implements MainFrgmModel{
                 }
             }
         }).start();
+    }
+
+    @Override
+    public void acceptData() {
+        new AcceptThead(socket).start();
+    }
+
+    class AcceptThead extends Thread{
+        BluetoothSocket socket;
+        InputStream inputStream;
+        public  AcceptThead(BluetoothSocket socket){
+            this.socket=socket;
+            try {
+                this.inputStream=socket.getInputStream();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+        @Override
+        public void run() {
+
+            try {
+                while (true){
+                    if (socket.isConnected()){
+                        byte[] data=new byte[1024];
+                        int length;
+                        if ((length=inputStream.read(data))>0){
+                            byte[] buffer=new byte[length];
+                            for (int i=0;i<length;i++){
+
+                                buffer[i]=data[i];
+                            }
+                            Log.i("wxc_bluetooth","length:"+ buffer.length);
+                            for (int i=0;i<buffer.length;i++){
+                                byte temp=buffer[i];
+                                Log.i("wxc_bluetooth","data:2进制："+ Integer.toBinaryString(temp&0x000000FF)+",10进制:"+Integer.valueOf(temp&0x000000FF));
+                            }
+
+                        }
+                    }
+
+                }
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+        }
 
     }
+
+
 }

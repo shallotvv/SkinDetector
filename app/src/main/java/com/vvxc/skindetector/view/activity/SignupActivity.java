@@ -54,10 +54,14 @@ public class SignupActivity extends BaseActivity<SignupPresenter,SignupView> imp
 
 
     @Override
-    public void showSignupFail() {
+    public void showSignupFail(String state) {
 
-        Toast.makeText(getBaseContext(), "创建失败", Toast.LENGTH_LONG).show();
-
+        if ("3".equals(state))
+            Toast.makeText(SignupActivity.this, "此手机号码已经注册用户", Toast.LENGTH_LONG).show();
+        if ("4".equals(state))
+            Toast.makeText(SignupActivity.this, "网络连接异常", Toast.LENGTH_LONG).show();
+        if ("2".equals(state))
+            Toast.makeText(SignupActivity.this, "注册失败", Toast.LENGTH_LONG).show();
         signupButton.setEnabled(true);
     }
 
