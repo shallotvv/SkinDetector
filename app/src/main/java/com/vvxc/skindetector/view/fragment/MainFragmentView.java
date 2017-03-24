@@ -17,4 +17,6 @@ public interface MainFragmentView {
     void showConnectBLTFail();
     void showConnectBLTSuccess();
     void showConnectBLT();
+
+    void reloadAnnalysisData(int dataType,int data);
 }

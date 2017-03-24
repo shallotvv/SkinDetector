@@ -33,6 +33,8 @@ dependencies {
 
     compile 'com.github.PhilJay:MPAndroidChart:v3.0.1'
 
+    compile 'com.github.john990:WaveView:v0.9'
+
  //   compile 'com.github.2359media:EasyAndroidAnimations:0.8'
 }
 repositories {

@@ -14,7 +14,9 @@ import com.vvxc.skindetector.Constants;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 import retrofit2.Call;
@@ -131,14 +133,16 @@ public class MainFrgmModelImpl implements MainFrgmModel{
     }
 
     @Override
-    public void acceptData() {
-        new AcceptThead(socket).start();
+    public void acceptData(OnRecieveDataListener listener) {
+        new AcceptThead(socket,listener).start();
     }
 
     class AcceptThead extends Thread{
         BluetoothSocket socket;
         InputStream inputStream;
-        public  AcceptThead(BluetoothSocket socket){
+        OnRecieveDataListener listener;
+        public  AcceptThead(BluetoothSocket socket,OnRecieveDataListener listener){
+            this.listener=listener;
             this.socket=socket;
             try {
                 this.inputStream=socket.getInputStream();
@@ -149,6 +153,7 @@ public class MainFrgmModelImpl implements MainFrgmModel{
 
         @Override
         public void run() {
+            List<Byte> result=new ArrayList<Byte>();
 
             try {
                 while (true){
@@ -158,15 +163,33 @@ public class MainFrgmModelImpl implements MainFrgmModel{
                         if ((length=inputStream.read(data))>0){
                             byte[] buffer=new byte[length];
                             for (int i=0;i<length;i++){
-
                                 buffer[i]=data[i];
                             }
                             Log.i("wxc_bluetooth","length:"+ buffer.length);
-                            for (int i=0;i<buffer.length;i++){
-                                byte temp=buffer[i];
-                                Log.i("wxc_bluetooth","data:2进制："+ Integer.toBinaryString(temp&0x000000FF)+",10进制:"+Integer.valueOf(temp&0x000000FF));
+                            //先传过来0xff，然后传数据
+                            if (Integer.valueOf(buffer[0]&0x000000FF)==255) {
+                                Log.i("wxc_bluetooth", "接受到0xff，开始收数据");
+                                result.clear();
                             }
+                                for (int i=0;i<buffer.length;i++){
+                                    byte temp=buffer[i];
+                                    Log.i("wxc_bluetooth","2进制："+ Integer.toBinaryString(temp&0x000000FF)+",10进制:"+Integer.valueOf(temp&0x000000FF));
 
+                                    result.add(temp);
+                                    if (result.size()>=11){
+                                        Log.i("wxc_bluetooth","result9:"+Integer.valueOf(result.get(9)&0x000000FF)+"result10:"+Integer.valueOf(result.get(10)&0x000000FF));
+                                        final int resultType=Integer.valueOf(result.get(9)&0x000000FF);
+                                        final int resultData=Integer.valueOf(result.get(10)&0x000000FF);
+                                        handler.post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Log.i("wxc_bluetooth","final的数据,result9:"+resultType+"result10:"+resultData);
+                                                listener.onRecieveData(resultType,resultData);
+                                            }
+                                        });
+
+                                    }
+                                }
                         }
                     }
 

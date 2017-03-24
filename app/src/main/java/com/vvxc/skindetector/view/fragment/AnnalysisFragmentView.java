@@ -5,5 +5,5 @@ package com.vvxc.skindetector.view.fragment;
  */
 public interface AnnalysisFragmentView {
 
-    void reloadData(String data);
+    void reloadData(int data);
 }

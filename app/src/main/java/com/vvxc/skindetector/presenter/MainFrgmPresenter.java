@@ -67,7 +67,12 @@ public class MainFrgmPresenter extends BasePresenter<MainFragmentView>{
                 @Override
                 public void onSuccess() {
                     getView().showConnectBLTSuccess();
-                    model.acceptData();
+                    model.acceptData(new MainFrgmModel.OnRecieveDataListener() {
+                        @Override
+                        public void onRecieveData(int dataType, int data) {
+                            getView().reloadAnnalysisData(dataType,data);
+                        }
+                    });
                 }
 
                 @Override

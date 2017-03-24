@@ -15,7 +15,7 @@ public interface MainFrgmModel {
 
     void connectBluetooth(BluetoothDevice bluetoothDevice,OnConnectBTCompeleteListener listener);
 
-    void acceptData();
+    void acceptData(OnRecieveDataListener listener);
 
     interface OnGetWeatherCompeleteListener {
         void onSuccess(String temperature,String location,String weather,String humidity);
@@ -28,6 +28,9 @@ public interface MainFrgmModel {
     interface OnConnectBTCompeleteListener {
         void onSuccess();
         void onFail();
+    }
+    interface OnRecieveDataListener {
+        void onRecieveData(int dataType,int data);
     }
 
 }

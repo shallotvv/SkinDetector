@@ -40,6 +40,11 @@ import java.util.Set;
  * Created by vvxc on 2017/3/12.
  */
 public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentView>implements MainFragmentView,View.OnClickListener {
+
+    public static final int TYPE_WATER=1;
+    public static final int TYPE_OIL=2;
+    public static final int TYPE_PH=4;
+    public static final int TYPE_TEMPERATURE=8;
     View view;
     TextView temporature;
     TextView city;
@@ -134,7 +139,12 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
         viewPagerAdapter.addFragment(temperatureFragment, "温度");
         viewPagerAdapter.addFragment(phFragment, "PH");
         viewPagerAdapter.addFragment(new AnnalysisFragment(), "总体评估");
+//         viewPagerAdapter.addFragment(new TestFragment(), "油脂");
+//        viewPagerAdapter.addFragment(new TestFragment(), "温度");
+//        viewPagerAdapter.addFragment(new TestFragment(), "PH");
+//        viewPagerAdapter.addFragment(new TestFragment(), "总体评估");
         mViewPager.setAdapter(viewPagerAdapter);//设置适配器
+        mViewPager.setOffscreenPageLimit(5); //设置viewpager预加载数量为5个
 
         mTabLayout.addTab(mTabLayout.newTab().setText("水分"));//给TabLayout添加Tab
         mTabLayout.addTab(mTabLayout.newTab().setText("油脂"));
@@ -227,6 +237,22 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
     }
 
     @Override
+    public void reloadAnnalysisData(int dataType, int data) {
+        if (dataType==TYPE_WATER){
+            waterFragment.reloadData(data);
+        }
+        if (dataType==TYPE_OIL){
+            waterFragment.reloadData(data);
+        }
+        if (dataType==TYPE_TEMPERATURE){
+            waterFragment.reloadData(data);
+        }
+        if (dataType==TYPE_PH){
+            waterFragment.reloadData(data);
+        }
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_bluetooth:
@@ -237,7 +263,6 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
                         bluetoothAdapter.enable();
                     }else{
                         showBTList();
-                        waterFragment.reloadData("1");
 
                     }
 
