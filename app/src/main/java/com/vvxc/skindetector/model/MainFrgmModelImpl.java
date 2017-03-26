@@ -176,10 +176,19 @@ public class MainFrgmModelImpl implements MainFrgmModel{
                                     Log.i("wxc_bluetooth","2进制："+ Integer.toBinaryString(temp&0x000000FF)+",10进制:"+Integer.valueOf(temp&0x000000FF));
 
                                     result.add(temp);
-                                    if (result.size()>=11){
+                                    if (result.size()>=11&&i==(buffer.length-1)){
                                         Log.i("wxc_bluetooth","result9:"+Integer.valueOf(result.get(9)&0x000000FF)+"result10:"+Integer.valueOf(result.get(10)&0x000000FF));
                                         final int resultType=Integer.valueOf(result.get(9)&0x000000FF);
-                                        final int resultData=Integer.valueOf(result.get(10)&0x000000FF);
+                                        final float resultData;
+                                        if (resultType==8){
+                                            resultData= (float) (Integer.valueOf(result.get(10)&0x000000FF)+Integer.valueOf(0xFF & result.get(11))/10.0);
+                                        }else if (resultType==4){
+                                            resultData= (float) (Integer.valueOf(result.get(10)&0x000000FF)/10.0);
+                                        }else{
+
+                                            resultData=Integer.valueOf(result.get(10)&0x000000FF);
+                                        }
+
                                         handler.post(new Runnable() {
                                             @Override
                                             public void run() {

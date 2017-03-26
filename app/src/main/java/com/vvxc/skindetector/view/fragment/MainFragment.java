@@ -128,17 +128,16 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
             }
         });
 
-
-        waterFragment=new AnnalysisFragment();
-        oilFragment=new AnnalysisFragment();
-        temperatureFragment=new AnnalysisFragment();
-        phFragment=new AnnalysisFragment();
+        AnnalysisFrgmFactory factory=new AnnalysisFrgmFactory();
+        waterFragment=factory.createAnnalysisFrgm(AnnalysisFrgmFactory.WATER_FRGM);
+        oilFragment=factory.createAnnalysisFrgm(AnnalysisFrgmFactory.OIL_FRGM);
+        temperatureFragment=factory.createAnnalysisFrgm(AnnalysisFrgmFactory.TEMPORATRY_FRGM);
+        phFragment=factory.createAnnalysisFrgm(AnnalysisFrgmFactory.PH_FRGM);
         MyViewPagerAdapter viewPagerAdapter = new MyViewPagerAdapter(((MainActivity)getActivity()).getSupportFragmentManager());
         viewPagerAdapter.addFragment(waterFragment, "水分");//添加Fragment
         viewPagerAdapter.addFragment(oilFragment, "油脂");
         viewPagerAdapter.addFragment(temperatureFragment, "温度");
         viewPagerAdapter.addFragment(phFragment, "PH");
-        viewPagerAdapter.addFragment(new AnnalysisFragment(), "总体评估");
 //         viewPagerAdapter.addFragment(new TestFragment(), "油脂");
 //        viewPagerAdapter.addFragment(new TestFragment(), "温度");
 //        viewPagerAdapter.addFragment(new TestFragment(), "PH");
@@ -237,18 +236,18 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
     }
 
     @Override
-    public void reloadAnnalysisData(int dataType, int data) {
+    public void reloadAnnalysisData(int dataType, float data) {
         if (dataType==TYPE_WATER){
             waterFragment.reloadData(data);
         }
         if (dataType==TYPE_OIL){
-            waterFragment.reloadData(data);
+            oilFragment.reloadData(data);
         }
         if (dataType==TYPE_TEMPERATURE){
-            waterFragment.reloadData(data);
+            temperatureFragment.reloadData(data);
         }
         if (dataType==TYPE_PH){
-            waterFragment.reloadData(data);
+            phFragment.reloadData(data);
         }
     }
 

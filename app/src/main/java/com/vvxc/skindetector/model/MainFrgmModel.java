@@ -30,7 +30,7 @@ public interface MainFrgmModel {
         void onFail();
     }
     interface OnRecieveDataListener {
-        void onRecieveData(int dataType,int data);
+        void onRecieveData(int dataType,float data);
     }
 
 }

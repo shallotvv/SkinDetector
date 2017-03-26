@@ -37,19 +37,23 @@ public class MainFrgmPresenter extends BasePresenter<MainFragmentView>{
         });
     }
 
-    public void getWeather(String string){
+    public void getWeather(final String string){
         model.getWeather(string, new MainFrgmModel.OnGetWeatherCompeleteListener() {
             @Override
             public void onSuccess(String temperature, String location, String weather, String humidity) {
-                getView().setWeather("天气："+weather);
-                getView().setTemperature(temperature+"°");
-                getView().setLocation(location);
-                if (Integer.parseInt(temperature)<16){
-                    getView().setTip("护肤小建议:"+Constants.TIP_COLD);
+                if (isViewAttached()){
+                    getView().setWeather("天气："+weather);
+                    getView().setTemperature(temperature+"°");
+                    getView().setLocation(location);
+                    if (Integer.parseInt(temperature)<16){
+                        getView().setTip("护肤小建议:"+Constants.TIP_COLD);
+                    }else{
+                        getView().setTip("护肤小建议:"+Constants.TIP_MIDDLE);
+                    }
+                    getView().showSuccess();
                 }else{
-                    getView().setTip("护肤小建议:"+Constants.TIP_MIDDLE);
+                    getWeather(string);
                 }
-                getView().showSuccess();
             }
 
             @Override
@@ -69,7 +73,7 @@ public class MainFrgmPresenter extends BasePresenter<MainFragmentView>{
                     getView().showConnectBLTSuccess();
                     model.acceptData(new MainFrgmModel.OnRecieveDataListener() {
                         @Override
-                        public void onRecieveData(int dataType, int data) {
+                        public void onRecieveData(int dataType, float data) {
                             getView().reloadAnnalysisData(dataType,data);
                         }
                     });
