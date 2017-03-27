@@ -53,12 +53,17 @@ public class MainFrgmModelImpl implements MainFrgmModel{
         call.enqueue(new Callback<WeatherCityBean>() {
             @Override
             public void onResponse(Call<WeatherCityBean> call, Response<WeatherCityBean> response) {
-                listener.onSuccess(response.body().getResults().get(0).getId());
+                if (response.body().getResults().size()!=0){
+                    listener.onSuccess(response.body().getResults().get(0).getId());
+                }else{
+                    listener.onFail();
+                }
             }
 
             @Override
             public void onFailure(Call<WeatherCityBean> call, Throwable t) {
                 try {
+                    listener.onFail();
                     throw t;
                 } catch (Throwable throwable) {
                     throwable.printStackTrace();

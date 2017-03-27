@@ -1,8 +1,13 @@
 package com.vvxc.skindetector.presenter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.vvxc.skindetector.Bean.UserSelectInfoBean;
 import com.vvxc.skindetector.model.SelectInfoModel;
 import com.vvxc.skindetector.model.SelectInfoModelImpl;
+import com.vvxc.skindetector.model.UserSharePreference;
+import com.vvxc.skindetector.view.activity.SelectInfoActivity;
 import com.vvxc.skindetector.view.activity.SelectInfoView;
 
 /**
@@ -13,20 +18,28 @@ public class SelectInfoPresenter extends BasePresenter<SelectInfoView> {
     private SelectInfoModel model=new SelectInfoModelImpl();
 
     public void SelectInfo(UserSelectInfoBean user){
-        getView().showDialog();
-        model.postUserSelectInfo(user, new SelectInfoModel.OnPostCompleteListener() {
-            @Override
-            public void onSuccess() {
-                getView().hideDialog();
-                getView().goNextContext();
-            }
+        SelectInfoActivity activity= (SelectInfoActivity) getView();
+        SharedPreferences sharedPreferences=activity.getSharedPreferences("user", Context.MODE_PRIVATE);
+        String token=sharedPreferences.getString("token","-1");
+        if ("-1".equals(token)){
+            getView().showFail();
+        }else{
+            getView().showDialog();
+            model.postUserSelectInfo(token,user, new SelectInfoModel.OnPostCompleteListener() {
+                @Override
+                public void onSuccess() {
+                    getView().hideDialog();
+                    getView().goNextContext();
+                }
 
-            @Override
-            public void onFail() {
-                getView().hideDialog();
-                getView().showFail();
-            }
-        });
+                @Override
+                public void onFail() {
+                    getView().hideDialog();
+                    getView().showFail();
+                }
+            });
+        }
+
     }
 
 

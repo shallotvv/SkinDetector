@@ -13,7 +13,7 @@ import retrofit2.http.POST;
 
 /**
  * Created by vvxc on 2017/3/10.
- * 登录接口
+ * 用户接口
  */
 public interface UserService {
     @FormUrlEncoded
@@ -30,6 +30,18 @@ public interface UserService {
 
     @POST(Constants.USER_URL)
     Call<String> signup(@Body UserSignupBean user);
+
+
+    @FormUrlEncoded
+    @POST(Constants.USER_URL)
+    Call<String> postSexAndSkin(@Header("cookie") String session,
+                                @Field("user_sex") int  sex,
+                                @Field("user_skin_type") int skinType,
+                                @Field("method") String method);
+    @FormUrlEncoded
+    @POST(Constants.USER_URL)
+    Call<String> logout(@Header("cookie") String session,
+                                @Field("method") String method);
 
 
 }

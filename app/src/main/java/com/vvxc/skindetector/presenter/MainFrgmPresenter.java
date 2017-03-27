@@ -32,7 +32,7 @@ public class MainFrgmPresenter extends BasePresenter<MainFragmentView>{
 
             @Override
             public void onFail() {
-
+                getView().showFail();
             }
         });
     }
@@ -51,8 +51,6 @@ public class MainFrgmPresenter extends BasePresenter<MainFragmentView>{
                         getView().setTip("护肤小建议:"+Constants.TIP_MIDDLE);
                     }
                     getView().showSuccess();
-                }else{
-                    getWeather(string);
                 }
             }
 

@@ -1,9 +1,14 @@
 package com.vvxc.skindetector.presenter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import com.vvxc.skindetector.Bean.UserSignupBean;
 import com.vvxc.skindetector.model.SignupModel;
 import com.vvxc.skindetector.model.SignupModelImpl;
+import com.vvxc.skindetector.model.UserSharePreference;
 import com.vvxc.skindetector.util.JudgeUserInfoUtil;
+import com.vvxc.skindetector.view.activity.SignupActivity;
 import com.vvxc.skindetector.view.activity.SignupView;
 
 /**
@@ -44,7 +49,10 @@ public class SignupPresenter extends BasePresenter<SignupView> {
         user.setMethod("signup");
         signupModel.postUserInfo(user, new SignupModel.OnPostCompleteListener() {
             @Override
-            public void onSuccess() {
+            public void onSuccess(String token) {
+                SignupActivity activity= (SignupActivity) getView();
+                SharedPreferences sharedPreferences=activity.getSharedPreferences("user", Context.MODE_PRIVATE);
+                new UserSharePreference().saveToken(token,sharedPreferences);
                 getView().hideDialog();
                 getView().goNextContext();
             }

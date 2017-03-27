@@ -45,7 +45,8 @@ public class SignupModelImpl implements SignupModel {
                 Log.i("wxc_signupp",map.get("result"));
                 String  state=map.get("state");
                 if ("1".equals(state)){
-                    onPostCompleteListener.onSuccess();
+                    Log.i("wxc_signupp",map.get("token"));
+                    onPostCompleteListener.onSuccess(map.get("token"));
                     return;
                 }
                 if ("2".equals(state)||"3".equals(state)){

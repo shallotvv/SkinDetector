@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -24,12 +25,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.vvxc.skindetector.Bean.SkinDataListBean;
 import com.vvxc.skindetector.R;
+import com.vvxc.skindetector.model.UserSharePreference;
 import com.vvxc.skindetector.presenter.MainFrgmPresenter;
 import com.vvxc.skindetector.view.activity.MainActivity;
 import com.vvxc.skindetector.view.adapter.BluetoothListAdapter;
 import com.vvxc.skindetector.view.adapter.MyViewPagerAdapter;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -50,6 +54,7 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
     TextView city;
     TextView weather;
     TextView tip;
+
 
     AnnalysisFragment oilFragment,waterFragment,temperatureFragment,phFragment;
 
@@ -72,9 +77,15 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
         initView(inflater,container);
         //显示正在获取天气的Toast
         showGetWeather();
+        String city=new UserSharePreference().getCity(getActivity().getSharedPreferences("user",Context.MODE_PRIVATE));
+        if ("-1".equals(city)){
+            presenter.getWeather(editCity.getText().toString());
+        }else{
+            editCity.setText(city);
+            presenter.getWeather(editCity.getText().toString());
+        }
 
 
-        presenter.getWeather(editCity.getText().toString());
 
         return view;
     }
@@ -97,6 +108,7 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
         mViewPager = (ViewPager) view.findViewById(R.id.viewpager);
         mTabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         blueToothBtn= (Button) view.findViewById(R.id.btn_bluetooth);
+
 
         progressDialog=new ProgressDialog(getActivity(),R.style.AppTheme_Dark_Dialog);
         progressDialog.setCancelable(false);
@@ -133,7 +145,9 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
         oilFragment=factory.createAnnalysisFrgm(AnnalysisFrgmFactory.OIL_FRGM);
         temperatureFragment=factory.createAnnalysisFrgm(AnnalysisFrgmFactory.TEMPORATRY_FRGM);
         phFragment=factory.createAnnalysisFrgm(AnnalysisFrgmFactory.PH_FRGM);
-        MyViewPagerAdapter viewPagerAdapter = new MyViewPagerAdapter(((MainActivity)getActivity()).getSupportFragmentManager());
+
+        //fragment里嵌套fragment应该使用getChildFragmentManager，不然有时候frament会加载不出来
+        MyViewPagerAdapter viewPagerAdapter = new MyViewPagerAdapter(getChildFragmentManager());
         viewPagerAdapter.addFragment(waterFragment, "水分");//添加Fragment
         viewPagerAdapter.addFragment(oilFragment, "油脂");
         viewPagerAdapter.addFragment(temperatureFragment, "温度");
@@ -160,11 +174,27 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
                 if (false==hasFocus){
                     //getcity里调用了getWeather方法
                     showGetWeather();
+                    new UserSharePreference().saveCity(getActivity().getSharedPreferences("user",Context.MODE_PRIVATE),editCity.getText().toString());
                     presenter.getCity(editCity.getText().toString());
                 }
             }
         });
 
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        try {
+            //参数是固定写法
+            Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
+            childFragmentManager.setAccessible(true);
+            childFragmentManager.set(this, null);
+        } catch (NoSuchFieldException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

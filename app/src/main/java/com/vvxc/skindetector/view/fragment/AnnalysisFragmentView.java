@@ -10,4 +10,9 @@ public interface AnnalysisFragmentView {
 
     void setLabel(String label);
     void setUnit(String unit);
+
+    void showSuccess();
+    void showDialog();
+    void showFail();
+    void hideDialog();
 }

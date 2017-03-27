@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.vvxc.skindetector.Bean.UserInfoBean;
 import com.vvxc.skindetector.Bean.UserLoginBean;
+import com.vvxc.skindetector.MyApplication;
 import com.vvxc.skindetector.model.LoginModel;
 import com.vvxc.skindetector.model.LoginModelImpl;
 import com.vvxc.skindetector.model.UserSharePreference;
@@ -37,18 +38,24 @@ public class LoginPresenter extends BasePresenter<LoginView>{
         loginModel.postUserInfo(user, new LoginModel.OnPostCompleteListener() {
             @Override
             public void onPostSuccess(UserInfoBean user) {
-                getView().hideLoginDialog();
-                LoginActivity activity= (LoginActivity) getView();
-                SharedPreferences sharedPreferences=activity.getSharedPreferences("user", Context.MODE_PRIVATE);
-                new UserSharePreference().saveToken(user.getToken(),sharedPreferences);
-                //结束登录页面，并标记主界面的登录状态为true
-                getView().goNextContext(user);
+                if (isViewAttached()){
+                    getView().hideLoginDialog();
+                    LoginActivity activity= (LoginActivity) getView();
+                    SharedPreferences sharedPreferences=activity.getSharedPreferences("user", Context.MODE_PRIVATE);
+                    new UserSharePreference().saveToken(user.getToken(),sharedPreferences);
+                    //结束登录页面，并标记主界面的登录状态为true
+                    MyApplication application= (MyApplication) ((LoginActivity) getView()).getApplication();
+                    application.setUserInfo(user);
+                    getView().goNextContext(user);
+                }
             }
 
             @Override
             public void onPostFail() {
-                getView().hideLoginDialog();
-                getView().showLoginFail();
+                if (isViewAttached()){
+                    getView().hideLoginDialog();
+                    getView().showLoginFail();
+                }
             }
         });
     }

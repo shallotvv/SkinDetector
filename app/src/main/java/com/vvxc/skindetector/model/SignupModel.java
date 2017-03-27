@@ -15,7 +15,7 @@ public interface SignupModel {
     void postUserInfo(UserSignupBean user,OnPostCompleteListener onPostCompleteListener);
 
     interface OnPostCompleteListener{
-        void onSuccess();
+        void onSuccess(String token);
         void onFail(String state);
     }
 }

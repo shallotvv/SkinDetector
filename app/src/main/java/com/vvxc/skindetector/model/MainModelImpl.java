@@ -32,10 +32,8 @@ public class MainModelImpl implements  MainModel {
             public void onResponse(Call<UserInfoBean> call, Response<UserInfoBean> response) {
                 if (response.body()!=null){
                     if (response.body().getState()==1){
-
-                        Log.i("wxc_login","------state-----\n"+response.body().getState()+"\n----");
                         listener.onSuccess(response.body());
-                        Log.i("wxc_login","login\n"+"success");
+                        Log.i("wxc_login_by_token","login\n"+"success");
                         return;
                     }
 

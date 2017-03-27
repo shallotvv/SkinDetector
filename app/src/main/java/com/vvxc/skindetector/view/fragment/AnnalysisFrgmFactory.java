@@ -2,9 +2,11 @@ package com.vvxc.skindetector.view.fragment;
 
 import android.os.Bundle;
 
+import java.util.Date;
+
 /**
  * Created by vvxc on 2017/3/25.
- * 使用简单工厂模式穿件四个fragment，分别具有不同的坐标上限、label和满分标准。
+ * 使用简单工厂模式创建四个fragment，分别具有不同的坐标上限、label和满分标准。
  */
 public class AnnalysisFrgmFactory {
 
@@ -29,6 +31,7 @@ public class AnnalysisFrgmFactory {
         Bundle bundle=new Bundle();
         bundle.putInt("y",12);
         bundle.putInt("x",20);
+        bundle.putInt("type",PH_FRGM);
         fragment.setArguments(bundle);
         fragment.setFullMarks(6);
         fragment.setUnit("");
@@ -41,6 +44,7 @@ public class AnnalysisFrgmFactory {
         Bundle bundle=new Bundle();
         bundle.putInt("y",100);
         bundle.putInt("x",20);
+        bundle.putInt("type",TEMPORATRY_FRGM);
         fragment.setArguments(bundle);
         fragment.setFullMarks(36);
         fragment.setUnit("°");
@@ -53,6 +57,7 @@ public class AnnalysisFrgmFactory {
         Bundle bundle=new Bundle();
         bundle.putInt("y",100);
         bundle.putInt("x",20);
+        bundle.putInt("type",OIL_FRGM);
         fragment.setArguments(bundle);
         fragment.setFullMarks(25);
         fragment.setUnit("%");
@@ -65,6 +70,7 @@ public class AnnalysisFrgmFactory {
         Bundle bundle=new Bundle();
         bundle.putInt("y",100);
         bundle.putInt("x",20);
+        bundle.putInt("type",WATER_FRGM);
         fragment.setArguments(bundle);
 
         fragment.setUnit("%");

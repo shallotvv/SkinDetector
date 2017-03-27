@@ -35,8 +35,6 @@ public class LoginModelImpl implements LoginModel{
                 if (response.body()!=null){
 
                     if (response.body().getState()==1){
-
-                        Log.i("wxc_login","------state-----\n"+response.body().getState()+"----\n");
                         onPostCompleteListener.onPostSuccess(response.body());
                         Log.i("wxc_login","login\n"+"success");
                         return;

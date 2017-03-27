@@ -11,7 +11,7 @@ public interface SelectInfoModel {
      * @param user
      * @param listener
      */
-    void postUserSelectInfo(UserSelectInfoBean user, OnPostCompleteListener listener);
+    void postUserSelectInfo(String token,UserSelectInfoBean user, OnPostCompleteListener listener);
 
     interface OnPostCompleteListener{
         void onSuccess();

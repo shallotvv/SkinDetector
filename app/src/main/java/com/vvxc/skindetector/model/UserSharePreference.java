@@ -21,4 +21,20 @@ public class UserSharePreference {
         return token;
     }
 
+    public boolean deleteToken(SharedPreferences sharedPreferences){
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.remove("token");
+        return editor.commit();
+    }
+    public void saveCity(SharedPreferences sharedPreferences,String city){
+        Log.i("wxc_share_preference","保存city");
+        SharedPreferences.Editor editor=sharedPreferences.edit();
+        editor.putString("city",city);
+        editor.commit();
+    }
+    public String getCity(SharedPreferences sharedPreferences){
+        String city=sharedPreferences.getString("city","-1");
+        Log.i("wxc_share_preference","读city:"+city);
+        return city;
+    }
 }

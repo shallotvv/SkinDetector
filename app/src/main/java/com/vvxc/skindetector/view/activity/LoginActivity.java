@@ -16,6 +16,7 @@ import com.vvxc.skindetector.presenter.LoginPresenter;
 
 public class LoginActivity extends BaseActivity<LoginPresenter,LoginView> implements View.OnClickListener,LoginView {
     private static final String TAG = "LoginActivity";
+    private static final int SIGN_UP_OK = 4;
     private static final int REQUEST_SIGNUP = 0;
 
     EditText inputTele;
@@ -58,10 +59,10 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginView> implem
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_SIGNUP) {
             if (resultCode == RESULT_OK) {
-
+                setResult(SIGN_UP_OK);
                 // By default we just finish the Activity and log them in automatically
-                this.finish();
             }
+            this.finish();
         }
     }
 
@@ -89,7 +90,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter,LoginView> implem
                 Intent intent = new Intent(getApplicationContext(), SignupActivity.class);
                 //判断用户是否注册成功，如果成功，返回ok，LoginActivity  finnish。
                 startActivityForResult(intent, REQUEST_SIGNUP);
-                finish();
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
                 break;
             default:;

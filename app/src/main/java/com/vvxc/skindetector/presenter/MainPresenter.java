@@ -1,9 +1,11 @@
 package com.vvxc.skindetector.presenter;
 
+import android.app.Application;
 import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.vvxc.skindetector.Bean.UserInfoBean;
+import com.vvxc.skindetector.MyApplication;
 import com.vvxc.skindetector.model.MainModel;
 import com.vvxc.skindetector.model.MainModelImpl;
 import com.vvxc.skindetector.model.UserSharePreference;
@@ -26,9 +28,10 @@ public class MainPresenter extends BasePresenter<MainView> {
             mainModel.postToken(token, new MainModel.OnPostTokenCompleteListener() {
                 @Override
                 public void onSuccess(UserInfoBean user) {
-                    Log.i("wxc_login_by_token","success");
                     getView().setName(user.getUser_name());
                     getView().setLogin(true);
+                    MyApplication application= (MyApplication) ((MainActivity)getView()).getApplication();
+                    application.setUserInfo(user);
                 }
 
                 @Override

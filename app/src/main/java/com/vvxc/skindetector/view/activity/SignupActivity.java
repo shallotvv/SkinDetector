@@ -108,7 +108,7 @@ public class SignupActivity extends BaseActivity<SignupPresenter,SignupView> imp
     @Override
     public void goNextContext() {
         signupButton.setEnabled(true);
-        setResult(RESULT_OK, null);
+        setResult(RESULT_OK);
         Intent intent=new Intent(this,SelectInfoActivity.class);
         startActivity(intent);
         finish();

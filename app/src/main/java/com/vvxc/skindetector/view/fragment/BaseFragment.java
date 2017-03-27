@@ -19,6 +19,7 @@ public abstract class BaseFragment<T extends BasePresenter<V>,V> extends Fragmen
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        presenter=createPresenter();
         super.onCreate(savedInstanceState);
     }
 
@@ -26,7 +27,6 @@ public abstract class BaseFragment<T extends BasePresenter<V>,V> extends Fragmen
     @Override
     //创建view的时候，创建presenter，并将让presenter持有view的引用
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        presenter=createPresenter();
         presenter.attachView((V)this);
         return super.onCreateView(inflater, container, savedInstanceState);
     }

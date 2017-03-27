@@ -9,10 +9,21 @@ package com.vvxc.skindetector.Bean;
  * 3：干性
  * 4：敏感性
  * 5：混合性
+ *
+ * 1：男 0：女
  */
 public class UserSelectInfoBean {
     private int skinTyoe;
     private int sex;
+    private String token;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public int getSkinTyoe() {
         return skinTyoe;

@@ -1,6 +1,8 @@
 package com.vvxc.skindetector.view.activity;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -10,6 +12,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,7 +32,9 @@ import java.util.List;
 public class MainActivity extends BaseActivity<MainPresenter,MainView> implements MainView{
     public final static  int MAIN_TAG=12344;
     public final static  int LOGIN_SUCCESS=1;
+    private static final int SIGN_UP_OK = 4;
     public final static  int LOGIN_FAIL=0;
+    public final static int LOG_OUT=5;
     private static boolean isLogin=false;
 
 //    TabLayout mTabLayout;
@@ -57,7 +62,12 @@ public class MainActivity extends BaseActivity<MainPresenter,MainView> implement
          */
         presenter.loginByToken(getSharedPreferences("user",MODE_PRIVATE));
 
-
+        Resources resources=getResources();
+        Resources resource=(Resources)getBaseContext().getResources();
+        ColorStateList csl=(ColorStateList)resource.getColorStateList(R.color.navigation_menu_item_color);
+        navigationView.setBackgroundColor(0xffffffff);
+        navigationView.setItemTextColor(csl);  //设置list text的颜色
+        navigationView.setItemIconTintList(null);  //解决不显示icon原来的颜色
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -101,7 +111,8 @@ public class MainActivity extends BaseActivity<MainPresenter,MainView> implement
             @Override
             public void onClick(View v) {
                 if (isLogin){
-                    Toast.makeText(MainActivity.this,"跳转到个人主页",Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(MainActivity.this,PersonalActivity.class);
+                    startActivityForResult(intent,PersonalActivity.PERSONAL_TAG);
                     return;
                 }
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
@@ -116,12 +127,26 @@ public class MainActivity extends BaseActivity<MainPresenter,MainView> implement
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode==MAIN_TAG){
+            Log.i("wxc_login,result:",resultCode+"");
             if (resultCode==LOGIN_SUCCESS)
             {
                 UserInfoBean user= (UserInfoBean) data.getSerializableExtra("user");
                 setName(user.getUser_name());
                 //登录成功后改变用户名字和头像，并更改用户状态为已登录，点击头像应该跳转到个人主页而不是登录界面了
                 setLogin(true);
+                return;
+            }
+            if (resultCode==SIGN_UP_OK)
+            {
+                presenter.loginByToken(getSharedPreferences("user",MODE_PRIVATE));
+                return;
+            }
+        }
+
+        if (requestCode==PersonalActivity.PERSONAL_TAG){
+            if (resultCode==LOG_OUT){
+                isLogin=false;
+                setName("未登录");
             }
         }
 
@@ -160,7 +185,7 @@ public class MainActivity extends BaseActivity<MainPresenter,MainView> implement
             drawerLayout.closeDrawer(navigationView);
         }else{
 
-            moveTaskToBack(true);
+            super.onBackPressed();
         }
     }
 
@@ -177,6 +202,10 @@ public class MainActivity extends BaseActivity<MainPresenter,MainView> implement
     @Override
     public void setLogin(boolean isLogin) {
         this.isLogin=isLogin;
+    }
+
+    public boolean getLoginState(){
+        return isLogin;
     }
 
 }

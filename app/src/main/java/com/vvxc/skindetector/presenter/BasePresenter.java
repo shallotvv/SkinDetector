@@ -1,5 +1,7 @@
 package com.vvxc.skindetector.presenter;
 
+import android.util.Log;
+
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
 
@@ -25,12 +27,14 @@ public class BasePresenter<T> {
     protected T getView(){
         return view; //获取View
     }
+
     public boolean isViewAttached(){
         return view != null; //判断是否与View建立关联
     }
     public void detachView(){
         if(view != null){
             //解除关联
+            Log.i("wxc_presenter","解除关联");
             view = null;
         }
     }

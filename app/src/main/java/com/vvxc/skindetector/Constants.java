@@ -8,6 +8,7 @@ public class Constants {
 
     public static final String RegisterUrl = "account/register";
     public static final String USER_URL =  "user";
+    public static final String SKIN_URL =  "skin";
     public static final String UserInfoUrl =  "/users/";
     public static final String UpdateUserInfoUrl =  "/users/";
     public static final String UpLoadSkinDateUrl =  "/skindata/";
@@ -22,8 +23,8 @@ public class Constants {
     public static  final int SENSTIVE=4;
     public static  final int COMBINATION=5;
 
-    public static  final int BOY=0;
-    public static  final int GIRL=1;
+    public static  final int BOY=1;
+    public static  final int GIRL=0;
 
 
     public static  final String TIP_COLD ="滋润保湿,皮肤容易缺水,用保湿型霜类化妆品,使用润唇膏.";
