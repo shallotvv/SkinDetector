@@ -40,6 +40,9 @@ public class AnnalysisModelImpl implements AnnalysisModel {
                 if (response.body() != null) {
                     Map<String,String> map=new Gson().fromJson(response.body().toString(),new TypeToken<Map<String,String>>(){}.getType());
                     //state:1,成功。 2，出错
+                    if(map==null){
+                        listener.onFail(); return;
+                    }
                     Log.i("wxc_logout:",map.get("result"));
                     String  state=map.get("state");
                     if ("1".equals(state)){

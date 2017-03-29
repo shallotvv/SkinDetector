@@ -36,9 +36,8 @@ public class MainModelImpl implements  MainModel {
                         Log.i("wxc_login_by_token","login\n"+"success");
                         return;
                     }
-
+                    Log.i("wxc_login","login\n"+"fail,state:"+response.body().getState());
                 }
-                Log.i("wxc_login","login\n"+"fail,state:"+response.body().getState());
                 listener.onFail();
 
             }

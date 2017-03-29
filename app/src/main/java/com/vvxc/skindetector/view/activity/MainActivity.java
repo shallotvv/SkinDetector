@@ -23,7 +23,10 @@ import android.widget.Toast;
 import com.vvxc.skindetector.Bean.UserInfoBean;
 import com.vvxc.skindetector.R;
 import com.vvxc.skindetector.presenter.MainPresenter;
+import com.vvxc.skindetector.view.fragment.DataFragment;
 import com.vvxc.skindetector.view.fragment.MainFragment;
+import com.vvxc.skindetector.view.fragment.RankFragment;
+import com.vvxc.skindetector.view.fragment.TestFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,13 +77,26 @@ public class MainActivity extends BaseActivity<MainPresenter,MainView> implement
                 switch (item.getItemId()){
                     case R.id.main:
                         hideFragment();
-                        drawerLayout.closeDrawer(navigationView);
                         fragmentManager.beginTransaction().show(mainFragment).commit();
+                        drawerLayout.closeDrawer(navigationView);
                         break;
-                    case R.id.data:break;
-                    case R.id.photo:break;
-                    case R.id.communication:break;
-                    case R.id.rank:break;
+                    case R.id.data:hideFragment();
+                        fragmentManager.beginTransaction().show(dataFragment).commit();
+                        drawerLayout.closeDrawer(navigationView);
+                        break;
+                    case R.id.photo:hideFragment();
+                        fragmentManager.beginTransaction().show(photoFragment).commit();
+                        drawerLayout.closeDrawer(navigationView);
+                        break;
+                    case R.id.communication:hideFragment();
+                        fragmentManager.beginTransaction().show(communicatFragment).commit();
+                        drawerLayout.closeDrawer(navigationView);
+                        break;
+                    case R.id.rank:
+                        hideFragment();
+                        fragmentManager.beginTransaction().show(rankFragment).commit();
+                        drawerLayout.closeDrawer(navigationView);
+                        break;
                 }
                 return true;
             }
@@ -100,11 +116,33 @@ public class MainActivity extends BaseActivity<MainPresenter,MainView> implement
         drawerLayout= (DrawerLayout) findViewById(R.id.drawer_main);
         imageView= (ImageView) navigationView.getHeaderView(0).findViewById(R.id.user_header_img);
         mainFragment=new MainFragment();
-        fragmentList=new ArrayList<Fragment>();
+        rankFragment=new RankFragment();
+        dataFragment=new DataFragment();
+        photoFragment=new TestFragment();
+        communicatFragment=new TestFragment();
+        fragmentList=new ArrayList<>();
 
+        fragmentList.add(rankFragment);
         fragmentList.add(mainFragment);
+        fragmentList.add(dataFragment);
+        fragmentList.add(photoFragment);
+        fragmentList.add(communicatFragment);
 
-        fragmentManager.beginTransaction().replace(R.id.main_frame,mainFragment).commit();
+        FragmentTransaction transaction;
+        transaction=fragmentManager.beginTransaction();
+        transaction.add(R.id.main_frame,mainFragment,"main");
+        transaction.add(R.id.main_frame,rankFragment,"rank");
+        transaction.add(R.id.main_frame,dataFragment,"data");
+        transaction.add(R.id.main_frame,communicatFragment,"communicat");
+        transaction.add(R.id.main_frame,photoFragment,"photo");
+        transaction.commit();
+        hideFragment();
+
+        transaction=fragmentManager.beginTransaction();
+        transaction.show(mainFragment);
+        transaction.commit();
+
+
         drawerToggle=new ActionBarDrawerToggle(this,drawerLayout,R.string.drawer_open,R.string.drawer_close);
         drawerLayout.addDrawerListener(drawerToggle);
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -157,9 +195,9 @@ public class MainActivity extends BaseActivity<MainPresenter,MainView> implement
         FragmentTransaction transaction=fragmentManager.beginTransaction();
         for (Fragment fragment :
                 fragmentList) {
-            transaction.hide(fragment).commit();
-
+            transaction.hide(fragment);
         }
+        transaction.commit();
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

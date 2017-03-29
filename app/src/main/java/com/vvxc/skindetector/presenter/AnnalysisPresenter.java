@@ -24,6 +24,7 @@ public class AnnalysisPresenter extends BasePresenter<AnnalysisFragmentView> {
             public void onSuccess() {
                 if (isViewAttached()){
                     getView().showSuccess();
+                    getView().hideDialog();
 
                 }
             }

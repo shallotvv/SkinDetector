@@ -39,9 +39,8 @@ public class LoginModelImpl implements LoginModel{
                         Log.i("wxc_login","login\n"+"success");
                         return;
                     }
-
+                    Log.i("wxc_login","login\n"+"fail"+",state:"+response.body().getState());
                 }
-                Log.i("wxc_login","login\n"+"fail"+",state:"+response.body().getState());
                 onPostCompleteListener.onPostFail();
             }
 

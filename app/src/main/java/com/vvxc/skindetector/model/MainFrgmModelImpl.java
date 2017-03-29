@@ -186,7 +186,8 @@ public class MainFrgmModelImpl implements MainFrgmModel{
                                         final int resultType=Integer.valueOf(result.get(9)&0x000000FF);
                                         final float resultData;
                                         if (resultType==8){
-                                            resultData= (float) (Integer.valueOf(result.get(10)&0x000000FF)+Integer.valueOf(0xFF & result.get(11))/10.0);
+                                            if(result.size()>11) resultData= (float) (Integer.valueOf(result.get(10)&0x000000FF)+Integer.valueOf(0xFF & result.get(11))/10.0);
+                                            else resultData= (float) Integer.valueOf(result.get(10)&0x000000FF);
                                         }else if (resultType==4){
                                             resultData= (float) (Integer.valueOf(result.get(10)&0x000000FF)/10.0);
                                         }else{

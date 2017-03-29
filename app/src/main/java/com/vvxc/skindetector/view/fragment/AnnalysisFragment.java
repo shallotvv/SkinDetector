@@ -40,6 +40,7 @@ import java.util.List;
 
 /**
  * Created by vvxc on 2017/3/11.
+ * 嵌套在首页里面的viewpager里的图表fragment，一共有四个
  */
 public class AnnalysisFragment extends BaseFragment<AnnalysisPresenter,AnnalysisFragmentView> implements AnnalysisFragmentView {
     private  int fullMarks =20;
@@ -50,7 +51,7 @@ public class AnnalysisFragment extends BaseFragment<AnnalysisPresenter,Annalysis
 
     private int fragmentType;
 
-    SkinDataListBean skinDataList;//传给服务器的list
+    SkinDataListBean skinDataList,saveSkinDataList;//传给服务器的list
     YAxis right,left;
     XAxis xAxis;
     List<Entry> dataList;
@@ -108,12 +109,8 @@ public class AnnalysisFragment extends BaseFragment<AnnalysisPresenter,Annalysis
 
 
         skinDataList=new SkinDataListBean();
+        saveSkinDataList=new SkinDataListBean();
 
-        SkinDataListBean.SkinDataBean test=new SkinDataListBean.SkinDataBean();
-        test.setSkin_type(1);
-        test.setSkin_date(new Date().getTime());
-        test.setSkin_value(12);
-        skinDataList.getSkin_data_list().add(test);
 
         dialog=new ProgressDialog(getContext(),R.style.AppTheme_Dark_Dialog);
 
@@ -160,7 +157,7 @@ public class AnnalysisFragment extends BaseFragment<AnnalysisPresenter,Annalysis
                     return;
                 }
                 skinDataList.setMethod("setSkinData");
-                presenter.saveValue(user.getToken(),skinDataList);
+                presenter.saveValue(user.getToken(),saveSkinDataList);
             }
         });
     }
@@ -171,13 +168,14 @@ public class AnnalysisFragment extends BaseFragment<AnnalysisPresenter,Annalysis
         Date date=new Date();
         dataList.add(new Entry(dataList.size(),data,date));
 
+
         //新测量的数据,要传给服务器的数据
         SkinDataListBean.SkinDataBean skinDataBean=new SkinDataListBean.SkinDataBean();
         skinDataBean.setSkin_date(date.getTime());
         skinDataBean.setSkin_type(fragmentType);
         skinDataBean.setSkin_value(data);
         skinDataList.getSkin_data_list().add(skinDataBean);
-
+        saveSkinDataList.getSkin_data_list().add(skinDataBean);
 
         LineDataSet lineDataSet=new LineDataSet(dataList,label);
         lineDataSet.setColor(0xFFE43F3F);
@@ -222,6 +220,7 @@ public class AnnalysisFragment extends BaseFragment<AnnalysisPresenter,Annalysis
 
     @Override
     public void showSuccess() {
+        saveSkinDataList.getSkin_data_list().clear();
         Toast.makeText(getActivity(),"上传数据成功",Toast.LENGTH_SHORT).show();
     }
 
