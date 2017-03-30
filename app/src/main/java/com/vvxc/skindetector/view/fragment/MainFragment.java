@@ -57,6 +57,7 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
 
 
     AnnalysisFragment oilFragment,waterFragment,temperatureFragment,phFragment;
+    SuggestFragment suggestFragment;
 
     TabLayout mTabLayout;
     ViewPager mViewPager;
@@ -145,6 +146,7 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
         oilFragment=factory.createAnnalysisFrgm(AnnalysisFrgmFactory.OIL_FRGM);
         temperatureFragment=factory.createAnnalysisFrgm(AnnalysisFrgmFactory.TEMPORATRY_FRGM);
         phFragment=factory.createAnnalysisFrgm(AnnalysisFrgmFactory.PH_FRGM);
+        suggestFragment=new SuggestFragment();
 
         //fragment里嵌套fragment应该使用getChildFragmentManager，不然有时候frament会加载不出来
         MyViewPagerAdapter viewPagerAdapter = new MyViewPagerAdapter(getChildFragmentManager());
@@ -152,6 +154,7 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
         viewPagerAdapter.addFragment(oilFragment, "油脂");
         viewPagerAdapter.addFragment(temperatureFragment, "温度");
         viewPagerAdapter.addFragment(phFragment, "PH");
+        viewPagerAdapter.addFragment(suggestFragment, "总体评估");
 //         viewPagerAdapter.addFragment(new TestFragment(), "油脂");
 //        viewPagerAdapter.addFragment(new TestFragment(), "温度");
 //        viewPagerAdapter.addFragment(new TestFragment(), "PH");

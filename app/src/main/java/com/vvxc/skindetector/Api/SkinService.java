@@ -5,6 +5,8 @@ import com.vvxc.skindetector.Constants;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
 
@@ -15,5 +17,11 @@ public interface SkinService {
 
     @POST(Constants.SKIN_URL)
     Call<String> postSkinData(@Body SkinDataListBean dataList,
+                              @Header("cookie") String session );
+
+    @FormUrlEncoded
+    @POST(Constants.SKIN_URL)
+    Call<SkinDataListBean> getSkinData(@Field("time") long time,
+                             @Field("method") String method,
                               @Header("cookie") String session );
 }

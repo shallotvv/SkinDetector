@@ -156,7 +156,7 @@ public class AnnalysisFragment extends BaseFragment<AnnalysisPresenter,Annalysis
                     Toast.makeText(getActivity(),"暂无需要更新的数据",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                skinDataList.setMethod("setSkinData");
+                saveSkinDataList.setMethod("setSkinData");
                 presenter.saveValue(user.getToken(),saveSkinDataList);
             }
         });
@@ -166,7 +166,7 @@ public class AnnalysisFragment extends BaseFragment<AnnalysisPresenter,Annalysis
     public void reloadData(float data) {
         Log.i("wxc_annalysis","更新数据");
         Date date=new Date();
-        dataList.add(new Entry(dataList.size(),data,date));
+        dataList.add(new Entry(dataList.size(),data,date.getTime()));
 
 
         //新测量的数据,要传给服务器的数据
@@ -182,7 +182,6 @@ public class AnnalysisFragment extends BaseFragment<AnnalysisPresenter,Annalysis
         lineDataSet.setCircleColor(0xffCC1D1D);
         LineData lineData=new LineData(lineDataSet);
         chart.setData(lineData);
-        chart.setData(new LineData(lineDataSet));
         chart.invalidate();
 
         ValueAnimator animator= new ValueAnimator().ofFloat(0,data).setDuration(2000);

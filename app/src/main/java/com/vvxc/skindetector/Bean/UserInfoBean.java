@@ -11,6 +11,16 @@ public class UserInfoBean implements Serializable{
     private String user_name;
     private String user_sex;
     private String user_tel;
+    private String user_skin_type;
+
+    public String getUser_skin_type() {
+        return user_skin_type;
+    }
+
+    public void setUser_skin_type(String user_skin_type) {
+        this.user_skin_type = user_skin_type;
+    }
+
     private String token;
     private int state;
 

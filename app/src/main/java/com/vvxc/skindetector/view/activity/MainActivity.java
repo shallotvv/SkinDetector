@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.vvxc.skindetector.Bean.UserInfoBean;
 import com.vvxc.skindetector.R;
 import com.vvxc.skindetector.presenter.MainPresenter;
+import com.vvxc.skindetector.view.fragment.CommunicatFragment;
 import com.vvxc.skindetector.view.fragment.DataFragment;
 import com.vvxc.skindetector.view.fragment.MainFragment;
 import com.vvxc.skindetector.view.fragment.RankFragment;
@@ -119,7 +120,7 @@ public class MainActivity extends BaseActivity<MainPresenter,MainView> implement
         rankFragment=new RankFragment();
         dataFragment=new DataFragment();
         photoFragment=new TestFragment();
-        communicatFragment=new TestFragment();
+        communicatFragment=new CommunicatFragment();
         fragmentList=new ArrayList<>();
 
         fragmentList.add(rankFragment);

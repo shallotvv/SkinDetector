@@ -31,7 +31,8 @@ public class ChartMarkView extends MarkerView {
 
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
-        Date date= (Date) e.getData();
+        long time= (long) e.getData();
+        Date date=new Date(time*1000);
         Log.i("wxc_date", ""+date.getTime());
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy年MM月dd日 HH时mm分");
         String result=simpleDateFormat.format(date);

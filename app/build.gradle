@@ -38,5 +38,6 @@ dependencies {
  //   compile 'com.github.2359media:EasyAndroidAnimations:0.8'
 }
 repositories {
-    maven { url "https://jitpack.io" }
+    maven { url "https://jitpack.io"
+    }
 }
