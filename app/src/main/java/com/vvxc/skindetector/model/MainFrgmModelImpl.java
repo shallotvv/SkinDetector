@@ -86,8 +86,8 @@ public class MainFrgmModelImpl implements MainFrgmModel{
                     String location =response.body().getResults().get(0).getLocation().getName();
                     String weather =response.body().getResults().get(0).getNow().getText();
                     String humidity =response.body().getResults().get(0).getNow().getHumidity();
-                    listener.onSuccess(temporature,location,weather,humidity);
                     Log.i("wxc_weather",temporature+location+weather+humidity+"");
+                    listener.onSuccess(temporature,location,weather,humidity);
                 }else {
                     listener.onFail();
                 }
@@ -195,11 +195,18 @@ public class MainFrgmModelImpl implements MainFrgmModel{
                                             resultData=Integer.valueOf(result.get(10)&0x000000FF);
                                         }
 
+                                        long deviceId=0;
+                                        for (int j = 1; j < 9; j++) {
+                                            deviceId <<= 8;
+                                            deviceId += result.get(i) ;
+                                        }
+
+                                        final long finalDeviceId = Math.abs(deviceId);
                                         handler.post(new Runnable() {
                                             @Override
                                             public void run() {
                                                 Log.i("wxc_bluetooth","final的数据,result9:"+resultType+"result10:"+resultData);
-                                                listener.onRecieveData(resultType,resultData);
+                                                listener.onRecieveData(resultType,resultData, finalDeviceId);
                                             }
                                         });
 

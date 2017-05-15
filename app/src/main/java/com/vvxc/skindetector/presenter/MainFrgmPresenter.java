@@ -45,10 +45,12 @@ public class MainFrgmPresenter extends BasePresenter<MainFragmentView>{
                     getView().setWeather("天气："+weather);
                     getView().setTemperature(temperature+"°");
                     getView().setLocation(location);
-                    if (Integer.parseInt(temperature)<16){
-                        getView().setTip("护肤小建议:"+Constants.TIP_COLD);
-                    }else{
-                        getView().setTip("护肤小建议:"+Constants.TIP_MIDDLE);
+                    if (temperature!=null){
+                        if (Integer.parseInt(temperature)<16){
+                            getView().setTip("护肤小建议:"+Constants.TIP_COLD);
+                        }else{
+                            getView().setTip("护肤小建议:"+Constants.TIP_MIDDLE);
+                        }
                     }
                     getView().showSuccess();
                 }
@@ -71,8 +73,9 @@ public class MainFrgmPresenter extends BasePresenter<MainFragmentView>{
                     getView().showConnectBLTSuccess();
                     model.acceptData(new MainFrgmModel.OnRecieveDataListener() {
                         @Override
-                        public void onRecieveData(int dataType, float data) {
-                            getView().reloadAnnalysisData(dataType,data);
+                        public void onRecieveData(int dataType, float data, long deviceId) {
+
+                            getView().reloadAnnalysisData(dataType,data,deviceId);
                         }
                     });
                 }

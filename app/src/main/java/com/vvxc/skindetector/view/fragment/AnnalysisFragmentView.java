@@ -5,7 +5,7 @@ package com.vvxc.skindetector.view.fragment;
  */
 public interface AnnalysisFragmentView {
 
-    void reloadData(float data);
+    void reloadData(float data,long deviceId,String weather,String address,String temporature);
     void setFullMarks(int fullMarks);
 
     void setLabel(String label);

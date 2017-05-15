@@ -152,7 +152,7 @@ public class AnnalysisFragment extends BaseFragment<AnnalysisPresenter,Annalysis
                     return;
                 }
 
-                if (skinDataList.getSkin_data_list().size()==0){
+                if (saveSkinDataList.getSkin_data_list().size()==0){
                     Toast.makeText(getActivity(),"暂无需要更新的数据",Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -163,7 +163,7 @@ public class AnnalysisFragment extends BaseFragment<AnnalysisPresenter,Annalysis
     }
 
     @Override
-    public void reloadData(float data) {
+    public void reloadData(float data,long deviceId,String weather,String address,String temporature) {
         Log.i("wxc_annalysis","更新数据");
         Date date=new Date();
         dataList.add(new Entry(dataList.size(),data,date.getTime()));
@@ -174,6 +174,10 @@ public class AnnalysisFragment extends BaseFragment<AnnalysisPresenter,Annalysis
         skinDataBean.setSkin_date(date.getTime());
         skinDataBean.setSkin_type(fragmentType);
         skinDataBean.setSkin_value(data);
+        skinDataBean.setSkin_address(address);
+        skinDataBean.setSkin_machine(String.valueOf(deviceId));
+        skinDataBean.setSkin_temperature(temporature);
+        skinDataBean.setSkin_weather(weather);
         skinDataList.getSkin_data_list().add(skinDataBean);
         saveSkinDataList.getSkin_data_list().add(skinDataBean);
 

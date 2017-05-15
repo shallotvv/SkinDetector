@@ -269,18 +269,18 @@ public class MainFragment extends BaseFragment<MainFrgmPresenter,MainFragmentVie
     }
 
     @Override
-    public void reloadAnnalysisData(int dataType, float data) {
+    public void reloadAnnalysisData(int dataType, float data,long deviceId) {
         if (dataType==TYPE_WATER){
-            waterFragment.reloadData(data);
+            waterFragment.reloadData(data,deviceId,weather.getText().toString(),editCity.getText().toString(),temporature.getText().toString());
         }
         if (dataType==TYPE_OIL){
-            oilFragment.reloadData(data);
+            oilFragment.reloadData(data,deviceId,weather.getText().toString(),editCity.getText().toString(),temporature.getText().toString());
         }
         if (dataType==TYPE_TEMPERATURE){
-            temperatureFragment.reloadData(data);
+            temperatureFragment.reloadData(data,deviceId,weather.getText().toString(),editCity.getText().toString(),temporature.getText().toString());
         }
         if (dataType==TYPE_PH){
-            phFragment.reloadData(data);
+            phFragment.reloadData(data,deviceId,weather.getText().toString(),editCity.getText().toString(),temporature.getText().toString());
         }
     }
 

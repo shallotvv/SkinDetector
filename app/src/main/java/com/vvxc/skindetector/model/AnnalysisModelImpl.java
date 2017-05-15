@@ -43,16 +43,16 @@ public class AnnalysisModelImpl implements AnnalysisModel {
                     if(map==null){
                         listener.onFail(); return;
                     }
-                    Log.i("wxc_logout:",map.get("result"));
+                    Log.i("wxc_save:",map.get("result"));
                     String  state=map.get("state");
                     if ("1".equals(state)){
-                        Log.i("wxc_logout_state",map.get("state"));
+                        Log.i("wxc_save_state",map.get("state"));
                         listener.onSuccess();
                         return;
                     }
                     if ("0".equals(state)){
 
-                        Log.i("wxc_sex_skin","失败："+state);
+                        Log.i("wxc_save","失败："+state);
                         listener.onFail();
                         return;
                     }

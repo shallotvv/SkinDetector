@@ -32,7 +32,10 @@ public class ChartMarkView extends MarkerView {
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
         long time= (long) e.getData();
-        Date date=new Date(time*1000);
+        if (time<9999999999.0){
+            time=time*1000;
+        }
+        Date date=new Date(time);
         Log.i("wxc_date", ""+date.getTime());
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy年MM月dd日 HH时mm分");
         String result=simpleDateFormat.format(date);

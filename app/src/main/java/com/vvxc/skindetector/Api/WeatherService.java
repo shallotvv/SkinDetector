@@ -16,7 +16,7 @@ public interface WeatherService {
     static final String LOCATION_URL="location/search.json";
 
 
-    static final String WHEATHER_BASE_URL="https://api.thinkpage.cn/v3/";
+    static final String WHEATHER_BASE_URL="https://api.seniverse.com/v3/";
     static final String APP_KEY="t8uhd5ah0p5p1llc";
     static final String LANGUAGE="zh-Hans";
     static final String UNIT="c";
