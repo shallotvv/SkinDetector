@@ -13,6 +13,7 @@ import com.vvxc.skindetector.Bean.UserSelectInfoBean;
 import com.vvxc.skindetector.Constants;
 import com.vvxc.skindetector.R;
 import com.vvxc.skindetector.presenter.SelectInfoPresenter;
+import com.vvxc.skindetector.view.activity.view.SelectInfoView;
 
 /**
  * 注册时让用户选择自己的肤质和性别的界面

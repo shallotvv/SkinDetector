@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.vvxc.skindetector.Bean.UserSignupBean;
 import com.vvxc.skindetector.R;
 import com.vvxc.skindetector.presenter.SignupPresenter;
+import com.vvxc.skindetector.view.activity.view.SignupView;
 
 public class SignupActivity extends BaseActivity<SignupPresenter,SignupView> implements SignupView,View.OnClickListener{
     private static final String TAG = "SignupActivity";

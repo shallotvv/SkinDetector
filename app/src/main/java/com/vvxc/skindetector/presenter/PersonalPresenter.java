@@ -4,10 +4,10 @@ import android.content.SharedPreferences;
 
 import com.vvxc.skindetector.MyApplication;
 import com.vvxc.skindetector.model.PersonalModel;
-import com.vvxc.skindetector.model.PersonalModelImpl;
+import com.vvxc.skindetector.model.impl.PersonalModelImpl;
 import com.vvxc.skindetector.model.UserSharePreference;
 import com.vvxc.skindetector.view.activity.PersonalActivity;
-import com.vvxc.skindetector.view.activity.PersonalView;
+import com.vvxc.skindetector.view.activity.view.PersonalView;
 
 /**
  * Created by vvxc on 2017/3/27.

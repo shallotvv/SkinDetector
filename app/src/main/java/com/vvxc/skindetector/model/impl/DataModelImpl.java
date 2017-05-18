@@ -1,4 +1,4 @@
-package com.vvxc.skindetector.model;
+package com.vvxc.skindetector.model.impl;
 
 import android.util.Log;
 
@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.vvxc.skindetector.Api.SkinService;
 import com.vvxc.skindetector.Bean.SkinDataListBean;
 import com.vvxc.skindetector.Constants;
+import com.vvxc.skindetector.model.DataModel;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,7 +18,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 /**
  * Created by vvxc on 2017/3/29.
  */
-public class DataModelImpl implements DataModel{
+public class DataModelImpl implements DataModel {
     @Override
     public void getDataByDay(String token, long time, final OnGetDataListener listener) {
         Retrofit retrofit = new Retrofit.Builder()

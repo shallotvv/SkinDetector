@@ -1,4 +1,4 @@
-package com.vvxc.skindetector.view.fragment;
+package com.vvxc.skindetector.view.fragment.view;
 
 import com.vvxc.skindetector.Bean.SkinDataListBean;
 

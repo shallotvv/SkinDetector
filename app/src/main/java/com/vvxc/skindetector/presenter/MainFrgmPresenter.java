@@ -1,17 +1,12 @@
 package com.vvxc.skindetector.presenter;
 
 import android.bluetooth.BluetoothDevice;
-import android.content.Context;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.vvxc.skindetector.Constants;
 import com.vvxc.skindetector.model.MainFrgmModel;
-import com.vvxc.skindetector.model.MainFrgmModelImpl;
-import com.vvxc.skindetector.view.fragment.MainFragment;
-import com.vvxc.skindetector.view.fragment.MainFragmentView;
-
-import java.io.IOException;
+import com.vvxc.skindetector.model.impl.MainFrgmModelImpl;
+import com.vvxc.skindetector.view.fragment.view.MainFragmentView;
 
 /**
  * Created by vvxc on 2017/3/12.

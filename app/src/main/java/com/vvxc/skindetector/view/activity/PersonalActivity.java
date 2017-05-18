@@ -2,7 +2,6 @@ package com.vvxc.skindetector.view.activity;
 
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +9,7 @@ import android.widget.Toast;
 
 import com.vvxc.skindetector.R;
 import com.vvxc.skindetector.presenter.PersonalPresenter;
+import com.vvxc.skindetector.view.activity.view.PersonalView;
 
 public class PersonalActivity extends BaseActivity<PersonalPresenter,PersonalView> implements View.OnClickListener,PersonalView{
     public static final int PERSONAL_TAG=7;

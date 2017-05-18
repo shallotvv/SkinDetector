@@ -1,4 +1,4 @@
-package com.vvxc.skindetector.view.activity;
+package com.vvxc.skindetector.view.activity.view;
 
 import com.vvxc.skindetector.Bean.UserInfoBean;
 

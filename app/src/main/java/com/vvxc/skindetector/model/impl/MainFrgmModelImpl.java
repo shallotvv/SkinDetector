@@ -1,4 +1,4 @@
-package com.vvxc.skindetector.model;
+package com.vvxc.skindetector.model.impl;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -10,6 +10,7 @@ import com.vvxc.skindetector.Api.WeatherService;
 import com.vvxc.skindetector.Bean.WeatherBean;
 import com.vvxc.skindetector.Bean.WeatherCityBean;
 import com.vvxc.skindetector.Constants;
+import com.vvxc.skindetector.model.MainFrgmModel;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -33,7 +34,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  *
  * 连接蓝牙，接受数据
  */
-public class MainFrgmModelImpl implements MainFrgmModel{
+public class MainFrgmModelImpl implements MainFrgmModel {
     Handler handler=new Handler();
     BluetoothSocket socket= null;
 

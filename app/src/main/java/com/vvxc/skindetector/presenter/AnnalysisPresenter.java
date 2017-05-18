@@ -1,13 +1,9 @@
 package com.vvxc.skindetector.presenter;
 
-import android.util.Log;
-
 import com.vvxc.skindetector.Bean.SkinDataListBean;
-import com.vvxc.skindetector.Bean.UserInfoBean;
 import com.vvxc.skindetector.model.AnnalysisModel;
-import com.vvxc.skindetector.model.AnnalysisModelImpl;
-import com.vvxc.skindetector.model.LoginModel;
-import com.vvxc.skindetector.view.fragment.AnnalysisFragmentView;
+import com.vvxc.skindetector.model.impl.AnnalysisModelImpl;
+import com.vvxc.skindetector.view.fragment.view.AnnalysisFragmentView;
 
 /**
  * Created by vvxc on 2017/3/27.

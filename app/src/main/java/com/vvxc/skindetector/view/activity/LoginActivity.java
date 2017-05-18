@@ -13,6 +13,7 @@ import com.vvxc.skindetector.Bean.UserInfoBean;
 import com.vvxc.skindetector.Bean.UserLoginBean;
 import com.vvxc.skindetector.R;
 import com.vvxc.skindetector.presenter.LoginPresenter;
+import com.vvxc.skindetector.view.activity.view.LoginView;
 
 public class LoginActivity extends BaseActivity<LoginPresenter,LoginView> implements View.OnClickListener,LoginView {
     private static final String TAG = "LoginActivity";

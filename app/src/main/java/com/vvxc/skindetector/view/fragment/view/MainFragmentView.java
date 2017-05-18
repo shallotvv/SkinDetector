@@ -1,4 +1,4 @@
-package com.vvxc.skindetector.view.fragment;
+package com.vvxc.skindetector.view.fragment.view;
 
 /**
  * Created by vvxc on 2017/3/12.

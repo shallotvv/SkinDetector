@@ -2,8 +2,8 @@ package com.vvxc.skindetector.presenter;
 
 import com.vvxc.skindetector.Bean.SkinDataListBean;
 import com.vvxc.skindetector.model.DataModel;
-import com.vvxc.skindetector.model.DataModelImpl;
-import com.vvxc.skindetector.view.fragment.DataView;
+import com.vvxc.skindetector.model.impl.DataModelImpl;
+import com.vvxc.skindetector.view.fragment.view.DataView;
 
 /**
  * Created by vvxc on 2017/3/29.

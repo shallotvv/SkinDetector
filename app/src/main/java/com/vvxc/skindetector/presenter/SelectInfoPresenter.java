@@ -5,10 +5,9 @@ import android.content.SharedPreferences;
 
 import com.vvxc.skindetector.Bean.UserSelectInfoBean;
 import com.vvxc.skindetector.model.SelectInfoModel;
-import com.vvxc.skindetector.model.SelectInfoModelImpl;
-import com.vvxc.skindetector.model.UserSharePreference;
+import com.vvxc.skindetector.model.impl.SelectInfoModelImpl;
 import com.vvxc.skindetector.view.activity.SelectInfoActivity;
-import com.vvxc.skindetector.view.activity.SelectInfoView;
+import com.vvxc.skindetector.view.activity.view.SelectInfoView;
 
 /**
  * Created by vvxc on 2017/3/11.

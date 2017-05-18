@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
 import android.view.Menu;
@@ -18,16 +17,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.vvxc.skindetector.Bean.UserInfoBean;
 import com.vvxc.skindetector.R;
 import com.vvxc.skindetector.presenter.MainPresenter;
+import com.vvxc.skindetector.view.activity.view.MainView;
 import com.vvxc.skindetector.view.fragment.CommunicatFragment;
 import com.vvxc.skindetector.view.fragment.DataFragment;
 import com.vvxc.skindetector.view.fragment.MainFragment;
+import com.vvxc.skindetector.view.fragment.PhotoFragment;
 import com.vvxc.skindetector.view.fragment.RankFragment;
-import com.vvxc.skindetector.view.fragment.TestFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -119,7 +118,7 @@ public class MainActivity extends BaseActivity<MainPresenter,MainView> implement
         mainFragment=new MainFragment();
         rankFragment=new RankFragment();
         dataFragment=new DataFragment();
-        photoFragment=new TestFragment();
+        photoFragment=new PhotoFragment();
         communicatFragment=new CommunicatFragment();
         fragmentList=new ArrayList<>();
 

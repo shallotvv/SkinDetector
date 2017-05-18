@@ -1,16 +1,15 @@
 package com.vvxc.skindetector.presenter;
 
-import android.app.Application;
 import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.vvxc.skindetector.Bean.UserInfoBean;
 import com.vvxc.skindetector.MyApplication;
 import com.vvxc.skindetector.model.MainModel;
-import com.vvxc.skindetector.model.MainModelImpl;
+import com.vvxc.skindetector.model.impl.MainModelImpl;
 import com.vvxc.skindetector.model.UserSharePreference;
 import com.vvxc.skindetector.view.activity.MainActivity;
-import com.vvxc.skindetector.view.activity.MainView;
+import com.vvxc.skindetector.view.activity.view.MainView;
 
 /**
  * Created by vvxc on 2017/3/21.

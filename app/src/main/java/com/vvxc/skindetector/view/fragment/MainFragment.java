@@ -25,13 +25,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.vvxc.skindetector.Bean.SkinDataListBean;
 import com.vvxc.skindetector.R;
 import com.vvxc.skindetector.model.UserSharePreference;
 import com.vvxc.skindetector.presenter.MainFrgmPresenter;
 import com.vvxc.skindetector.view.activity.MainActivity;
 import com.vvxc.skindetector.view.adapter.BluetoothListAdapter;
 import com.vvxc.skindetector.view.adapter.MyViewPagerAdapter;
+import com.vvxc.skindetector.view.fragment.view.MainFragmentView;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;

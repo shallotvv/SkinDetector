@@ -1,4 +1,4 @@
-package com.vvxc.skindetector.view.activity;
+package com.vvxc.skindetector.view.activity.view;
 
 /**
  * Created by vvxc on 2017/3/11.

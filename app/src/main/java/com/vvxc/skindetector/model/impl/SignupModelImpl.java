@@ -1,4 +1,4 @@
-package com.vvxc.skindetector.model;
+package com.vvxc.skindetector.model.impl;
 
 import android.util.Log;
 
@@ -9,6 +9,7 @@ import com.vvxc.skindetector.Api.UserService;
 import com.vvxc.skindetector.Bean.UserInfoBean;
 import com.vvxc.skindetector.Bean.UserSignupBean;
 import com.vvxc.skindetector.Constants;
+import com.vvxc.skindetector.model.SignupModel;
 
 import org.json.JSONObject;
 

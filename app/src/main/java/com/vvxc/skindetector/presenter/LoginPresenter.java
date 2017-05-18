@@ -7,11 +7,11 @@ import com.vvxc.skindetector.Bean.UserInfoBean;
 import com.vvxc.skindetector.Bean.UserLoginBean;
 import com.vvxc.skindetector.MyApplication;
 import com.vvxc.skindetector.model.LoginModel;
-import com.vvxc.skindetector.model.LoginModelImpl;
+import com.vvxc.skindetector.model.impl.LoginModelImpl;
 import com.vvxc.skindetector.model.UserSharePreference;
 import com.vvxc.skindetector.util.JudgeUserInfoUtil;
 import com.vvxc.skindetector.view.activity.LoginActivity;
-import com.vvxc.skindetector.view.activity.LoginView;
+import com.vvxc.skindetector.view.activity.view.LoginView;
 
 /**
  * Created by vvxc on 2017/3/10.

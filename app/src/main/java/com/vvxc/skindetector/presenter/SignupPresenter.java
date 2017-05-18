@@ -5,11 +5,11 @@ import android.content.SharedPreferences;
 
 import com.vvxc.skindetector.Bean.UserSignupBean;
 import com.vvxc.skindetector.model.SignupModel;
-import com.vvxc.skindetector.model.SignupModelImpl;
+import com.vvxc.skindetector.model.impl.SignupModelImpl;
 import com.vvxc.skindetector.model.UserSharePreference;
 import com.vvxc.skindetector.util.JudgeUserInfoUtil;
 import com.vvxc.skindetector.view.activity.SignupActivity;
-import com.vvxc.skindetector.view.activity.SignupView;
+import com.vvxc.skindetector.view.activity.view.SignupView;
 
 /**
  * Created by vvxc on 2017/3/10.
